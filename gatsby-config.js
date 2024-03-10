@@ -6,5 +6,5 @@ module.exports = {
     title: `Colloid-Profile`,
     siteUrl: `https://www.yourdomain.tld`,
   },
-  plugins: [],
+  plugins: ['gatsby-plugin-theme-ui'],
 }
