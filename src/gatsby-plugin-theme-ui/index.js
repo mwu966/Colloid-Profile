@@ -1,6 +1,6 @@
 const theme = {
   colors: {
-    text: '#FFFFFF',
+    text: '#BB8B4B',
     background: '#001028',
   },
 }
