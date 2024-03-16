@@ -8,16 +8,18 @@ export default function  IndexPage() {
   const contentStyle = {
     margin: "auto",
     maxWidth: "500px",
-};
-  return (
-    <div>
-      <Header />
-      <div>
-        <h1>Hello world</h1>
-      </div>
-    </div>
+    fontFamily: 'Kaisei Opti, sans-serif', // フォントを設定します
+  };
 
+  return (
+    
+      <div>
+        <Header />
+        <div style={contentStyle}>
+          <h1>Hello world　あいうえお</h1>
+          <span>こんにちは、世界</span>
+        </div>
+      </div>
+    
   )
 }
-
-

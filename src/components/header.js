@@ -8,7 +8,8 @@ export default function Header() {
         color: '#BB8B4B', // ここでリンクの色を設定します
         textDecoration: 'none', // リンクの下線を削除します
         marginRight: '70px', // 右側のマージンを追加します
-        boxSizing: 'border-box' // パディングとボーダーを要素の幅と高さに含めます
+        boxSizing: 'border-box', // パディングとボーダーを要素の幅と高さに含めます
+        fontFamily: 'Kaisei Opti, sans-serif', // フォントを設定します
     };
 
     return (
