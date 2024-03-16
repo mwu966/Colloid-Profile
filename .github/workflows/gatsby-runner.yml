@@ -28,9 +28,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      
-      - name: Install Dependencies
-        run: npm install
+      - run: npm ci
       - run: npm run deploy
       - name: Show npm debug log
         if: failure()  # このステップはジョブが失敗したときのみ実行されます
