@@ -6,6 +6,7 @@ module.exports = {
     title: `Colloid-Profile`,
     siteUrl: `https://www.yourdomain.tld`,
   },
+  pathPrefix: "/Colloid-Profile",
   plugins: [    {
     resolve: `gatsby-omni-font-loader`,
     options: {
