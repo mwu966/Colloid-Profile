@@ -4,7 +4,7 @@
 module.exports = {
   siteMetadata: {
     title: `Colloid-Profile`,
-    siteUrl: `https://www.yourdomain.tld`,
+    siteUrl: `https://mwu966.github.io/Colloid-Profile/`,
   },
   pathPrefix: "/Colloid-Profile",
   plugins: [    {
