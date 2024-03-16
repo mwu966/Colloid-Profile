@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '16'
 
       - name: Cache dependencies
         uses: actions/cache@v3
@@ -30,7 +30,12 @@ jobs:
             ${{ runner.os }}-node-
 
       - run: npm ci
+      - name: Install Dependencies
+        run: npm install
       - run: npm run deploy
+      - name: Show npm debug log
+        if: failure()  # このステップはジョブが失敗したときのみ実行されます
+        run: cat /home/runner/.npm/_logs/*-debug-*.log
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
