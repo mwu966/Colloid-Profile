@@ -23,7 +23,7 @@ jobs:
 
     - name: Show npm debug log
       if: failure()  # このステップはジョブが失敗したときのみ実行されます
-      run: cat /home/runner/.npm/_logs/*-debug.log
+      run: cat /home/runner/.npm/_logs/*-debug-*.log
 
     - name: Build
       run: npm run build  # Gatsbyのビルドコマンドを実行します
