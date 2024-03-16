@@ -56,6 +56,9 @@ jobs:
         with:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
+      - name: Clear npm cache
+        run: npm cache clean --force
+      
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
