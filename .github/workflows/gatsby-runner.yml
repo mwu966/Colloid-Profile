@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-22.04
     permissions:
       contents: write
@@ -30,13 +30,21 @@ jobs:
 
       - run: npm ci
       - run: npm run deploy
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
       - name: Show npm debug log
         if: failure()  # このステップはジョブが失敗したときのみ実行されます
         run: cat /home/runner/.npm/_logs/*-debug-*.log
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+  deploy:
+    runs-on: ubuntu-22.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
