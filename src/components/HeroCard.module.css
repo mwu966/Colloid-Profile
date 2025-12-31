@@ -1,0 +1,81 @@
+.card {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 20px;
+  background: linear-gradient(180deg, var(--surface2), var(--surface));
+  box-shadow: 0 0 18px rgba(51, 198, 201, 0.12);
+}
+
+.logo {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  margin: 0 0 10px;
+  color: var(--brass);
+  font-family: var(--font-logo);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.05;
+  position: relative;
+  display: inline-block;
+  text-shadow: 0 4px 18px rgba(226, 179, 90, 0.2);
+  padding-bottom: 8px;
+}
+
+.logo::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 62%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brass), transparent);
+}
+
+.note {
+  margin: 0 0 16px;
+  color: var(--text);
+  font-size: 1rem;
+  font-family: var(--font-body);
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.primary {
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: rgba(68, 214, 214, 0.15);
+  color: var(--text);
+  font-family: var(--font-section);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary:hover,
+.primary:focus-visible {
+  border-color: var(--linkHover);
+  box-shadow: 0 0 12px rgba(68, 214, 214, 0.35);
+}
+
+.secondary {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.secondary:hover,
+.secondary:focus-visible {
+  color: var(--linkHover);
+  text-decoration: underline;
+}

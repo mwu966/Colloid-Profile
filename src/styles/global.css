@@ -1,0 +1,38 @@
+:root {
+  --bg: #0a2233;
+  --surface: #123a52;
+  --surface2: #174860;
+  --border: #3e8797;
+  --text: #f1faff;
+  --muted: #b7d3df;
+  --accent: #44d6d6;
+  --accentWarm: #f06a5e;
+  --brass: #e2b35a;
+  --linkHover: #97f2ec;
+  --shadow: rgba(0, 0, 0, 0.35);
+  --font-body: "Noto Sans JP", system-ui, -apple-system, sans-serif;
+  --font-section: "Kaisei Opti", "Noto Sans JP", serif;
+  --font-modal: "Zen Antique", "Noto Sans JP", serif;
+  --font-logo: "Kaisei Decol", "Noto Sans JP", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--text);
+  background: radial-gradient(1200px 600px at 10% -10%, #1c4a63 0%, #0a2233 60%);
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
