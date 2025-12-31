@@ -64,18 +64,3 @@
   border-color: var(--linkHover);
   box-shadow: 0 0 12px rgba(68, 214, 214, 0.35);
 }
-
-.secondary {
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  color: var(--accent);
-  text-decoration: none;
-  font-size: 0.95rem;
-}
-
-.secondary:hover,
-.secondary:focus-visible {
-  color: var(--linkHover);
-  text-decoration: underline;
-}

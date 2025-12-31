@@ -12,9 +12,6 @@ export default function HeroCard({ onOpenAbout }) {
         <button type="button" className={styles.primary} onClick={onOpenAbout}>
           自己紹介を見る
         </button>
-        <a href="/about" className={styles.secondary}>
-          別ページで開く
-        </a>
       </div>
     </section>
   )

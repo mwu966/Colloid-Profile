@@ -16,7 +16,7 @@ export default function BlogCard({ posts }) {
   return (
     <section className={styles.card} id="blog">
       <div className={styles.header}>
-        <h2 className={styles.title}>Blog</h2>
+        <h2 className={styles.title}>Blog -ミルク蒼屋のチラシ-</h2>
         <a
           href="https://colloidgel.hatenablog.com/"
           className={styles.blogLink}
