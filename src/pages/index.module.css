@@ -7,52 +7,147 @@
   margin: 0 auto;
   padding: 16px;
   display: grid;
-  gap: 24px;
+  gap: 60px;
 }
 
-.portalSection {
-  border: 1px solid var(--border);
+.contentSection {
   border-radius: 20px;
-  padding: 20px;
-  background: rgba(18, 58, 82, 0.4);
+  padding: 24px;
+  background: linear-gradient(180deg, rgba(17, 28, 51, 0.55), rgba(15, 23, 42, 0.75));
+  border: 1px solid var(--stroke);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   display: grid;
-  gap: 24px;
-}
-
-.portalHeader {
-  font-size: 0.95rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  font-family: var(--font-section);
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 12px;
+  gap: 32px;
 }
 
 .subSection {
-  padding-top: 28px;
   display: grid;
-  gap: 18px;
+  gap: 22px;
+}
+
+.subSection + .subSection {
+  padding-top: 18px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 450ms ease-out, transform 450ms ease-out;
+}
+
+.inView {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sectionHeader {
+  display: grid;
+  gap: 12px;
+}
+
+.sectionHeading {
+  display: grid;
+  gap: 6px;
 }
 
 .sectionTitle {
-  font-size: 1.25rem;
-  color: var(--brass);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-family: var(--font-section);
+  font-size: 1.1rem;
+  color: var(--accentWarm);
+  letter-spacing: 0.04em;
+  font-family: var(--font-body);
   font-weight: 500;
+}
+
+.sectionCaption {
+  font-size: 0.85rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.sectionRule {
+  height: 1px;
+  background: var(--stroke);
+}
+
+.introSection {
+  border-radius: 20px;
+  padding: 24px;
+  background: linear-gradient(180deg, rgba(17, 28, 51, 0.55), rgba(15, 23, 42, 0.75));
+  border: 1px solid var(--stroke);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  display: grid;
+  gap: 24px;
+}
+
+.introGrid {
+  display: grid;
+  gap: 20px;
+}
+
+.introCard {
+  border-radius: 16px;
+  padding: 18px;
+  background: linear-gradient(180deg, rgba(17, 28, 51, 0.45), rgba(15, 23, 42, 0.7));
+  border: 1px solid var(--stroke);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  position: relative;
+  overflow: hidden;
+}
+
+.introCard::before,
+.introCard::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.introCard::before {
+  top: 12px;
+  left: 12px;
+  border-top: 1px solid var(--stroke);
+  border-left: 1px solid var(--stroke);
+}
+
+.introCard::after {
+  right: 12px;
+  bottom: 12px;
+  border-right: 1px solid var(--stroke);
+  border-bottom: 1px solid var(--stroke);
+}
+
+.introTitle {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  color: var(--accentWarm);
+  font-weight: 500;
+}
+
+.introBody {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.introList {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
 }
 
 .linksGrid {
   display: grid;
-  gap: 18px;
+  gap: 20px;
 }
 
 .footer {
   margin-top: 8px;
   padding: 18px 0 28px;
-  border-top: 1px solid var(--border);
   color: var(--muted);
   font-size: 0.9rem;
   display: flex;
@@ -63,16 +158,29 @@
 @media (min-width: 768px) {
   .container {
     padding: 24px;
-    gap: 32px;
+    gap: 72px;
   }
 
-  .portalSection {
-    padding: 24px;
-    gap: 28px;
+  .contentSection {
+    padding: 28px;
+    gap: 36px;
   }
 
   .subSection {
-    padding-top: 32px;
+    gap: 24px;
+  }
+
+  .subSection + .subSection {
+    padding-top: 22px;
+  }
+
+  .introSection {
+    padding: 28px;
+    gap: 28px;
+  }
+
+  .introGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
   }
 

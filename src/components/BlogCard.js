@@ -12,11 +12,18 @@ const formatDate = (isoDate, pubDate) => {
   return `${yyyy}-${mm}-${dd}`
 }
 
-export default function BlogCard({ posts }) {
+export default function BlogCard({ posts, className, style, ...rest }) {
   return (
-    <section className={styles.card} id="blog">
+    <section
+      className={`${styles.card} ${className || ""}`}
+      style={style}
+      {...rest}
+    >
       <div className={styles.header}>
-        <h2 className={styles.title}>Blog -ミルク蒼屋のチラシ-</h2>
+        <div className={styles.headingBlock}>
+          <h2 className={styles.title}>Blog</h2>
+          <div className={styles.caption}>ミルク蒼屋のチラシ</div>
+        </div>
         <a
           href="https://colloidgel.hatenablog.com/"
           className={styles.blogLink}
@@ -26,6 +33,7 @@ export default function BlogCard({ posts }) {
           ブログへ →
         </a>
       </div>
+      <div className={styles.rule} />
       <div className={styles.list}>
         {posts.length === 0 ? (
           <div className={styles.empty}>まだ投稿がありません</div>

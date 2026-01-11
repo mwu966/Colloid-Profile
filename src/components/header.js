@@ -5,8 +5,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <div className={styles.logo}>Colloid Profile ポータル</div>
-        <div />
+        <div className={styles.logo}>Colloid プロフィール</div>
       </div>
     </header>
   )

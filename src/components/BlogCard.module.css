@@ -1,9 +1,35 @@
 .card {
-  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 18px;
-  background: linear-gradient(180deg, var(--surface2), var(--surface));
-  box-shadow: 0 0 16px rgba(227, 91, 79, 0.1);
+  background: linear-gradient(180deg, rgba(17, 28, 51, 0.5), rgba(15, 23, 42, 0.7));
+  border: 1px solid var(--stroke);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before,
+.card::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.card::before {
+  top: 12px;
+  left: 12px;
+  border-top: 1px solid var(--stroke);
+  border-left: 1px solid var(--stroke);
+}
+
+.card::after {
+  right: 12px;
+  bottom: 12px;
+  border-right: 1px solid var(--stroke);
+  border-bottom: 1px solid var(--stroke);
 }
 
 .header {
@@ -13,16 +39,33 @@
   margin-bottom: 12px;
 }
 
+.headingBlock {
+  display: grid;
+  gap: 6px;
+}
+
 .title {
   margin: 0;
   font-size: 1.2rem;
-  color: var(--brass);
-  font-family: var(--font-section);
+  color: var(--accentWarm);
+  font-family: var(--font-body);
   font-weight: 500;
 }
 
+.caption {
+  font-size: 0.85rem;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.rule {
+  height: 1px;
+  background: var(--stroke);
+  margin-bottom: 12px;
+}
+
 .blogLink {
-  color: var(--accent);
+  color: var(--text);
   text-decoration: none;
   font-size: 0.95rem;
   align-self: flex-start;
@@ -32,7 +75,7 @@
 
 .blogLink:hover,
 .blogLink:focus-visible {
-  color: var(--linkHover);
+  color: var(--accent);
   border-color: var(--accent);
   outline: 2px solid var(--accent);
   outline-offset: 2px;
@@ -53,18 +96,23 @@
   border-radius: 12px;
   text-decoration: none;
   color: var(--text);
-  background: rgba(13, 42, 58, 0.6);
-  border: 1px solid transparent;
-  transition: border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  background: transparent;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .row:hover,
 .row:focus-visible {
-  border-color: var(--accent);
-  color: var(--linkHover);
-  box-shadow: 0 0 10px rgba(51, 198, 201, 0.25);
+  background: rgba(67, 231, 198, 0.08);
+  color: var(--accent);
+  transform: translateY(-1px);
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+.row:hover .titleText,
+.row:focus-visible .titleText {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .date {
@@ -81,8 +129,15 @@
 }
 
 .arrow {
-  color: var(--accentWarm);
+  color: var(--muted);
   font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.row:hover .arrow,
+.row:focus-visible .arrow {
+  transform: translateX(2px);
+  color: var(--accent);
 }
 
 .empty {
