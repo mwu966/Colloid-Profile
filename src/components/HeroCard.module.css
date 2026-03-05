@@ -1,55 +1,52 @@
 .hero {
-  padding: 20px 0 4px;
-  position: relative;
+  border: 2px solid var(--ink);
+  background: var(--panel);
+  border-radius: 20px;
+  padding: clamp(20px, 4vw, 30px);
+  display: grid;
+  gap: 16px;
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-  background-size: 36px 36px;
-  opacity: 0.12;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.hero::after {
-  content: "";
-  position: absolute;
-  top: -12px;
-  right: -8%;
-  width: 260px;
-  height: 260px;
-  background: radial-gradient(
-    circle at center,
-    rgba(67, 231, 198, 0.18),
-    transparent 65%
-  );
-  opacity: 0.85;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.logo {
-  font-size: clamp(2.4rem, 6vw, 3.6rem);
-  margin: 0 0 12px;
-  color: var(--accentWarm);
-  font-family: var(--font-hero);
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  line-height: 1.1;
-  position: relative;
-  z-index: 1;
+.title {
+  margin: 0;
+  font-family: var(--font-heading);
+  color: var(--ink);
+  font-size: clamp(1.95rem, 4.5vw, 2.8rem);
+  letter-spacing: -0.01em;
+  line-height: 1.08;
 }
 
 .note {
-  margin: 0 0 16px;
-  color: var(--muted);
-  font-size: 1.05rem;
-  font-weight: 400;
-  position: relative;
-  z-index: 1;
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(1rem, 2vw, 1.12rem);
+  line-height: 1.75;
+}
+
+.introCards {
+  display: grid;
+  gap: 12px;
+}
+
+.introCard {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: inset 5px 0 0 #2b4da2;
+  padding: 14px 16px;
+  display: grid;
+  gap: 6px;
+}
+
+.cardTitle {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1.18rem;
+  color: var(--ink);
+}
+
+.cardBody {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.02rem;
 }

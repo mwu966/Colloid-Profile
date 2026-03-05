@@ -1,15 +1,20 @@
 :root {
-  --bg: #0b1220;
-  --surface: rgba(15, 23, 42, 0.6);
-  --surfaceSoft: rgba(17, 28, 51, 0.6);
-  --text: #e5e7eb;
-  --muted: #9ca3af;
-  --accent: #43e7c6;
-  --accentWarm: #d4a353;
-  --stroke: rgba(148, 200, 221, 0.18);
-  --glow: rgba(67, 231, 198, 0.16);
-  --font-body: "Noto Sans JP", system-ui, -apple-system, sans-serif;
-  --font-hero: "Kaisei Decol", "Noto Sans JP", serif;
+  --bg: #f2f4f8;
+  --ink: #111827;
+  --text: #273244;
+  --subtext: #4b5565;
+  --panel: #ffffff;
+  --line: #c7ced9;
+  --accent: #2b4da2;
+  --accentWarm: #111827;
+  --muted: #4b5565;
+  --stroke: #c7ced9;
+  --surface: #ffffff;
+  --surfaceSoft: #f5f7fb;
+  --glow: rgba(43, 77, 162, 0.14);
+  --font-body: "Zen Kaku Gothic New", "Noto Sans JP", system-ui, -apple-system, sans-serif;
+  --font-heading: "Montserrat", "Noto Sans JP", system-ui, -apple-system, sans-serif;
+  --font-hero: "Montserrat", "Noto Sans JP", system-ui, -apple-system, sans-serif;
 }
 
 * {
@@ -19,12 +24,8 @@
 body {
   margin: 0;
   font-family: var(--font-body);
-  color: var(--text);
-  background:
-    radial-gradient(820px 420px at 12% -10%, rgba(67, 231, 198, 0.16), transparent 60%),
-    radial-gradient(760px 520px at 88% -15%, rgba(140, 126, 232, 0.14), transparent 60%),
-    radial-gradient(640px 460px at 35% 110%, rgba(67, 231, 198, 0.12), transparent 55%),
-    var(--bg);
+  color: var(--ink);
+  background: linear-gradient(180deg, #eceff3 0%, #f7f8fa 100%);
   min-height: 100vh;
 }
 

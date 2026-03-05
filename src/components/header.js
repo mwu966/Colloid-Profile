@@ -4,9 +4,14 @@ import * as styles from "./header.module.css"
 export default function Header() {
   return (
     <header className={styles.header}>
-      <div className={styles.inner}>
-        <div className={styles.logo}>Colloid プロフィール</div>
-      </div>
+      <p className={styles.logo}>
+        Colloid Profile - Colloid（コロイド）のプロフィールサイト
+      </p>
+      <nav className={styles.nav}>
+        <a href="#intro">About me</a>
+        <a href="#links">Links</a>
+        <a href="#blog">Blog</a>
+      </nav>
     </header>
   )
 }

@@ -21,7 +21,15 @@ module.exports = {
           },
           {
             name: "Noto Sans JP",
-            file: `https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&display=swap`,
+            file: `https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap`,
+          },
+          {
+            name: "Zen Kaku Gothic New",
+            file: `https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap`,
+          },
+          {
+            name: "Montserrat",
+            file: `https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&display=swap`,
           },
       ],
     },

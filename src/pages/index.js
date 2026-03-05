@@ -19,19 +19,16 @@ export default function IndexPage({ data }) {
   const year = new Date().getFullYear()
   const introBlocks = [
     {
-      title: "自分自身のこと",
-      body: "静かな制作環境と観察を大切にしています。日々のアウトプットを少しずつ積み上げるタイプです。",
-      bullets: ["記録と整理", "長期で整える", "好きな質感は金属と紙"],
+      title: "Profile",
+      body: "イラスト制作とフロントエンド実装を横断して活動。",
     },
     {
-      title: "趣味の同人のこと",
-      body: "創作はイベント参加とオンライン頒布の両方で展開しています。",
-      bullets: ["小冊子中心", "デザインと構成にこだわる"],
+      title: "Creative",
+      body: "同人誌・告知・ビジュアルの設計から制作まで担当。",
     },
     {
-      title: "職業エンジニアのこと",
-      body: "設計と実装のバランスを意識し、長く使える仕組みづくりを心がけています。",
-      bullets: ["UI/UX", "自動化", "保守性重視"],
+      title: "Engineering",
+      body: "保守性を重視したUI設計と実装を継続的に改善。",
     },
   ]
 
@@ -103,7 +100,7 @@ export default function IndexPage({ data }) {
       ],
     },
     {
-      title: "同人誌の通販",
+      title: "同人通販",
       links: [
         {
           label: "BOOTH",
@@ -146,71 +143,30 @@ export default function IndexPage({ data }) {
 
   return (
     <div className={styles.page}>
-      <Header />
       <main className={styles.container}>
-        <HeroCard />
-        <section
-          id="intro"
-          className={`${styles.introSection} ${styles.reveal}`}
-          data-animate
-          style={{ transitionDelay: "0ms" }}
-        >
-          <div className={styles.sectionHeader}>
-            <div className={styles.sectionHeading}>
-              <div className={styles.sectionTitle}>Self Introduction</div>
-              <div className={styles.sectionCaption}>自己紹介の概要</div>
-            </div>
-            <div className={styles.sectionRule} />
-          </div>
-          <div className={styles.introGrid}>
-            {introBlocks.map((block, index) => (
-              <article
-                key={block.title}
-                className={`${styles.introCard} ${styles.reveal}`}
+        <Header />
+        <section className={styles.reveal} data-animate style={{ transitionDelay: "0ms" }}>
+          <HeroCard introBlocks={introBlocks} />
+        </section>
+        <section id="links" className={styles.linksSection}>
+          <h2 className={styles.sectionTitle}>
+            Links（SNS / お絵かき系 / 同人通販 / 技術系）
+          </h2>
+          <div className={styles.linksGrid}>
+            {linkCards.map((card, index) => (
+              <LinkSectionCard
+                key={card.title}
+                title={card.title}
+                links={card.links}
+                className={styles.reveal}
                 data-animate
                 style={{ transitionDelay: `${80 * index}ms` }}
-              >
-                <h3 className={styles.introTitle}>{block.title}</h3>
-                <p className={styles.introBody}>{block.body}</p>
-                <ul className={styles.introList}>
-                  {block.bullets.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </article>
+              />
             ))}
           </div>
         </section>
-        <section className={styles.contentSection}>
-          <div id="links" className={styles.subSection}>
-            <div className={styles.sectionHeader}>
-              <div className={styles.sectionHeading}>
-                <div className={styles.sectionTitle}>Links</div>
-                <div className={styles.sectionCaption}>カテゴリ一覧</div>
-              </div>
-              <div className={styles.sectionRule} />
-            </div>
-            <div className={styles.linksGrid}>
-              {linkCards.map((card, index) => (
-                <LinkSectionCard
-                  key={card.title}
-                  title={card.title}
-                  links={card.links}
-                  className={styles.reveal}
-                  data-animate
-                  style={{ transitionDelay: `${80 * index}ms` }}
-                />
-              ))}
-            </div>
-          </div>
-          <div id="blog" className={styles.subSection}>
-            <BlogCard
-              posts={latestPosts}
-              className={styles.reveal}
-              data-animate
-              style={{ transitionDelay: "0ms" }}
-            />
-          </div>
+        <section id="blog" className={styles.reveal} data-animate style={{ transitionDelay: "40ms" }}>
+          <BlogCard posts={latestPosts} />
         </section>
         <footer className={styles.footer}>
           <span>© {year} Colloid</span>

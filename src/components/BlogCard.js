@@ -20,10 +20,7 @@ export default function BlogCard({ posts, className, style, ...rest }) {
       {...rest}
     >
       <div className={styles.header}>
-        <div className={styles.headingBlock}>
-          <h2 className={styles.title}>Blog</h2>
-          <div className={styles.caption}>ミルク蒼屋のチラシ</div>
-        </div>
+        <h2 className={styles.title}>Blog</h2>
         <a
           href="https://colloidgel.hatenablog.com/"
           className={styles.blogLink}
@@ -38,7 +35,7 @@ export default function BlogCard({ posts, className, style, ...rest }) {
         {posts.length === 0 ? (
           <div className={styles.empty}>まだ投稿がありません</div>
         ) : (
-          posts.map((post) => (
+          posts.map((post, index) => (
             <a
               key={post.id}
               href={post.link}
@@ -46,11 +43,11 @@ export default function BlogCard({ posts, className, style, ...rest }) {
               target="_blank"
               rel="noopener noreferrer"
             >
+              <span className={styles.no}>{String(index + 1).padStart(2, "0")}</span>
+              <span className={styles.titleText}>{post.title}</span>
               <span className={styles.date}>
                 {formatDate(post.isoDate, post.pubDate)}
               </span>
-              <span className={styles.titleText}>{post.title}</span>
-              <span className={styles.arrow}>→</span>
             </a>
           ))
         )}

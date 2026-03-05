@@ -1,5 +1,4 @@
 import * as React from "react"
-import { Icon } from "./Icon"
 import * as styles from "./LinkSectionCard.module.css"
 
 export default function LinkSectionCard({
@@ -25,14 +24,8 @@ export default function LinkSectionCard({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className={styles.linkMain}>
-              <Icon name={link.icon} className={styles.icon} />
-              <span className={styles.linkText}>
-                <span className={styles.linkLabel}>{link.label}</span>
-                <span className={styles.linkId}>{link.id}</span>
-              </span>
-            </span>
-            <span className={styles.arrow}>→</span>
+            <span className={styles.linkLabel}>{link.label}</span>
+            <span className={styles.linkId}>{link.id}</span>
           </a>
         ))}
       </div>
