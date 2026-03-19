@@ -1,20 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Jura:wght@700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap");
+
 :root {
-  --bg: #f2f4f8;
-  --ink: #111827;
-  --text: #273244;
-  --subtext: #4b5565;
-  --panel: #ffffff;
-  --line: #c7ced9;
-  --accent: #2b4da2;
-  --accentWarm: #111827;
-  --muted: #4b5565;
-  --stroke: #c7ced9;
-  --surface: #ffffff;
-  --surfaceSoft: #f5f7fb;
-  --glow: rgba(43, 77, 162, 0.14);
+  --bg: #d6e8e8;
+  --bg-soft: #f4f3e8;
+  --ink: #244450;
+  --text: #4f6970;
+  --subtext: #5f7c84;
+  --panel: #f7f4ec;
+  --panel-cool: #e4f1ef;
+  --panel-cool-soft: #f6fbfa;
+  --panel-warm: #f8ecdd;
+  --panel-warm-soft: #fff8f1;
+  --line: #8db4bb;
+  --line-cool: #93c5c8;
+  --line-warm: #edb07b;
+  --accent: #4b8a9b;
+  --accentWarm: #d88948;
+  --muted: #5a7078;
+  --stroke: #8db4bb;
+  --surface: #f7f4ec;
+  --surfaceSoft: #eef4f0;
+  --glow: rgba(125, 189, 195, 0.2);
   --font-body: "Zen Kaku Gothic New", "Noto Sans JP", system-ui, -apple-system, sans-serif;
-  --font-heading: "Montserrat", "Noto Sans JP", system-ui, -apple-system, sans-serif;
-  --font-hero: "Montserrat", "Noto Sans JP", system-ui, -apple-system, sans-serif;
+  --font-heading: "Zen Kaku Gothic New", "Noto Sans JP", system-ui, -apple-system, sans-serif;
+  --font-hero: "Zen Kaku Gothic New", "Noto Sans JP", system-ui, -apple-system, sans-serif;
+  --font-brand: "Jura", "Zen Kaku Gothic New", sans-serif;
 }
 
 * {
@@ -25,7 +35,7 @@ body {
   margin: 0;
   font-family: var(--font-body);
   color: var(--ink);
-  background: linear-gradient(180deg, #eceff3 0%, #f7f8fa 100%);
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 58%, var(--bg) 100%);
   min-height: 100vh;
 }
 

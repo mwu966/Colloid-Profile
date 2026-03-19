@@ -27,7 +27,7 @@ export default function BlogCard({ posts, className, style, ...rest }) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          ブログへ →
+          ブログ一覧へ
         </a>
       </div>
       <div className={styles.rule} />

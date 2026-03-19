@@ -1,53 +1,102 @@
 .card {
-  border: 2px solid var(--ink);
-  border-radius: 18px;
-  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
   padding: 18px;
   display: grid;
   gap: 12px;
+  align-content: start;
+  grid-template-rows: auto 1fr;
+}
+
+.cool {
+  background: var(--panel-cool);
+  border-color: var(--line-cool);
+}
+
+.warm {
+  background: var(--panel-warm);
+  border-color: var(--line-warm);
 }
 
 .title {
   margin: 0;
   font-family: var(--font-heading);
   color: var(--ink);
-  font-size: clamp(1.3rem, 2.6vw, 1.62rem);
+  font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+  font-weight: 900;
+  line-height: 1.15;
+  min-height: calc(1.15em * 1);
+  display: flex;
+  align-items: center;
+}
+
+.warm .title {
+  color: #655647;
 }
 
 .list {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .linkRow {
-  min-height: 56px;
+  min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   padding: 12px 14px;
   border-radius: 14px;
-  border: 1px solid var(--line);
+  border: 1px solid transparent;
   text-decoration: none;
-  background: #fff;
+}
+
+.cool .linkRow {
+  background: var(--panel-cool-soft);
+  border-color: var(--line-cool);
   color: var(--ink);
-  box-shadow: inset 4px 0 0 #2b4da2;
 }
 
-.linkLabel {
-  font-size: clamp(1.08rem, 2.4vw, 1.25rem);
-  font-weight: 700;
-}
-
-.linkId {
-  font-size: 0.95rem;
-  color: var(--subtext);
-  white-space: nowrap;
+.warm .linkRow {
+  background: var(--panel-warm-soft);
+  border-color: var(--line-warm);
+  color: #564a3d;
 }
 
 .linkRow:hover,
 .linkRow:focus-visible {
-  background: #eef3ff;
-  outline: 2px solid #7b95d1;
+  transform: translateY(-1px);
+  outline: 2px solid rgba(125, 189, 195, 0.24);
   outline-offset: 2px;
+}
+
+.linkMain {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.iconWrap {
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.linkLabel {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.linkId {
+  font-size: 0.82rem;
+  color: var(--subtext);
+  white-space: nowrap;
+}
+
+.warm .linkId {
+  color: #8d735d;
 }

@@ -3,9 +3,9 @@
 }
 
 .container {
-  max-width: 1040px;
+  max-width: 1360px;
   margin: 0 auto;
-  padding: 20px 16px 36px;
+  padding: 28px 18px 36px;
   display: grid;
   gap: 16px;
 }
@@ -23,19 +23,47 @@
 
 .linksSection {
   display: grid;
-  gap: 12px;
-  border: 2px solid var(--ink);
-  border-radius: 18px;
+  gap: 14px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
   background: var(--panel);
-  padding: 14px;
+  padding: 22px 24px;
+}
+
+.sectionHeading {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.sectionBadge {
+  min-width: 54px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--line-warm);
+  background: #fff3e6;
+  color: var(--accentWarm);
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 900;
 }
 
 .sectionTitle {
   margin: 0;
-  color: var(--ink);
+  color: #655647;
   font-family: var(--font-heading);
-  font-size: clamp(1.35rem, 3.2vw, 1.92rem);
-  padding: 2px 2px 4px;
+  font-size: clamp(1.5rem, 3.2vw, 2rem);
+  font-weight: 900;
+}
+
+.sectionLead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.7;
 }
 
 .linksGrid {
@@ -45,23 +73,139 @@
 
 .footer {
   margin-top: 4px;
-  padding: 10px 2px 18px;
+  padding: 6px 6px 18px;
   color: var(--subtext);
-  font-size: 0.92rem;
+  font-size: 0.8rem;
+  font-family: var(--font-body);
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.overlayLead {
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.overlayGrid {
+  display: grid;
+  gap: 16px;
+}
+
+.overlayMain {
+  display: grid;
+  gap: 16px;
+}
+
+.overlaySide {
+  display: grid;
+  gap: 16px;
+}
+
+.overlayCard {
+  border-radius: 20px;
+  padding: 18px;
+  display: grid;
+  gap: 10px;
+  border: 1px solid var(--line);
+}
+
+.overlayCool {
+  background: var(--panel-cool);
+  border-color: var(--line-cool);
+}
+
+.overlayWarm {
+  background: var(--panel-warm);
+  border-color: var(--line-warm);
+}
+
+.overlayCardTitle {
+  margin: 0;
   font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.overlayWarm .overlayCardTitle,
+.overlayWarm .overlayBody,
+.overlayWarm .overlayListItem,
+.overlayWarm .overlayChip {
+  color: #655647;
+}
+
+.overlayBody {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.overlayList {
+  display: grid;
+  gap: 8px;
+}
+
+.overlayListItem {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(141, 180, 187, 0.55);
+  color: var(--ink);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.overlayWarm .overlayListItem {
+  border-color: rgba(237, 176, 123, 0.65);
+}
+
+.overlayChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.overlayChip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(141, 180, 187, 0.55);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.overlayWarm .overlayChip {
+  border-color: rgba(237, 176, 123, 0.65);
 }
 
 @media (min-width: 768px) {
   .container {
-    padding: 20px 24px 40px;
+    padding: 28px 40px 40px;
     gap: 18px;
   }
 
   .linksGrid {
-    gap: 14px;
+    gap: 16px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .linksSection {
-    padding: 16px;
+    padding: 24px;
+  }
+
+  .overlayGrid {
+    grid-template-columns: minmax(0, 1fr) 280px;
   }
 }

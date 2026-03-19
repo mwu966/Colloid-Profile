@@ -2,6 +2,8 @@ import * as React from "react"
 import * as styles from "./Modal.module.css"
 
 export default function Modal({ isOpen, onClose, title, children }) {
+  const titleId = React.useId()
+
   React.useEffect(() => {
     if (!isOpen) return undefined
 
@@ -28,11 +30,11 @@ export default function Modal({ isOpen, onClose, title, children }) {
         className={styles.modal}
         role="dialog"
         aria-modal="true"
-        aria-labelledby="intro-title"
+        aria-labelledby={titleId}
         onClick={(event) => event.stopPropagation()}
       >
         <div className={styles.header}>
-          <h2 id="intro-title" className={styles.title}>
+          <h2 id={titleId} className={styles.title}>
             {title}
           </h2>
           <button

@@ -1,5 +1,18 @@
 const Parser = require("rss-parser")
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+
+  createTypes(`
+    type HatenaPost implements Node @dontInfer {
+      title: String!
+      link: String!
+      pubDate: String!
+      isoDate: Date @dateformat
+    }
+  `)
+}
+
 exports.sourceNodes = async ({
   actions,
   createNodeId,
