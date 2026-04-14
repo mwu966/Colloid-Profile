@@ -109,7 +109,7 @@
   border-radius: 20px;
   padding: 18px;
   display: grid;
-  gap: 10px;
+  gap: 6px;
   border: 1px solid var(--line);
 }
 
@@ -150,10 +150,22 @@
   gap: 8px;
 }
 
+.overlayYear {
+  margin: 6px 0 0;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.overlayWarm .overlayYear {
+  color: #655647;
+}
+
 .overlayListItem {
   min-height: 46px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding: 10px 12px;
   border-radius: 14px;
   background: rgba(255, 255, 255, 0.55);
@@ -161,6 +173,13 @@
   color: var(--ink);
   font-size: 0.95rem;
   line-height: 1.5;
+}
+
+.overlayListItem a {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 .overlayWarm .overlayListItem {

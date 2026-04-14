@@ -10,7 +10,7 @@ export default function HeroCard({ introBlocks = [], onIntroSelect }) {
           <p className={styles.brandSub}>CREATIVE ARCHIVE PORTAL</p>
         </div>
         <p className={styles.mastheadCopy}>
-          創作と技術の航路を、静かな情報設計でつなぐ。
+          本業システムエンジニアでたまに同人活動するColloidの創作と技術のアーカイブサイトです。
         </p>
       </section>
 
@@ -20,7 +20,7 @@ export default function HeroCard({ introBlocks = [], onIntroSelect }) {
           <h1 className={styles.title}>Intro</h1>
         </div>
         <p className={styles.note}>
-          見つけやすさと更新しやすさを優先しながら、創作と技術の両方が無理なく伝わる導線を目指しています。
+          自己紹介と同人活動と職業エンジニアとしての活動内容をまとめています。
         </p>
         <div className={styles.introCards}>
           {introBlocks.map((block, index) => (

@@ -1,6 +1,8 @@
 /**
  * @type {import('gatsby').GatsbyConfig}
  */
+const gaMeasurementId = process.env.GA_MEASUREMENT_ID || `G-DQXHTCPQG2`
+
 module.exports = {
   siteMetadata: {
     title: `Colloid-Profile`,
@@ -34,6 +36,21 @@ module.exports = {
       ],
     },
   },
-    'gatsby-plugin-theme-ui'
+    `gatsby-plugin-theme-ui`,
+    ...(gaMeasurementId
+      ? [
+          {
+            resolve: `gatsby-plugin-google-gtag`,
+            options: {
+              trackingIds: [gaMeasurementId],
+              pluginConfig: {
+                head: true,
+                respectDNT: true,
+                exclude: ["/preview/**", "/do-not-track/me/too/"],
+              },
+            },
+          },
+        ]
+      : []),
   ],
 }

@@ -47,3 +47,17 @@
 Deploy this starter with one click on [Netlify](https://app.netlify.com/signup):
 
 [<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-minimal)
+
+## Google Analytics
+
+This site uses `gatsby-plugin-google-gtag` for Google Analytics.
+
+Set your GA4 measurement ID before building or serving the production build:
+
+```shell
+export GA_MEASUREMENT_ID=G-XXXXXXXXXX
+npm run build
+npm run serve
+```
+
+If `GA_MEASUREMENT_ID` is not set, the analytics script is not injected.
