@@ -1,19 +1,37 @@
 .page {
+  position: relative;
   min-height: 100vh;
+  overflow: clip;
+}
+
+.page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  opacity: 0.42;
 }
 
 .container {
-  max-width: 1360px;
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 28px 18px 36px;
+  padding: 32px 18px 44px;
   display: grid;
-  gap: 16px;
+  gap: 54px;
 }
 
 .reveal {
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 450ms ease-out, transform 450ms ease-out;
+  opacity: 0.01;
+  transform: translateY(18px) scaleY(0.9);
+  transform-origin: bottom center;
+  transition: opacity 220ms linear, transform 720ms cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
 }
 
 .inView {
@@ -21,169 +39,207 @@
   transform: translateY(0);
 }
 
-.linksSection {
+.sectionShell {
+  position: relative;
   display: grid;
-  gap: 14px;
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  background: var(--panel);
-  padding: 22px 24px;
+  gap: 24px;
 }
 
-.sectionHeading {
-  display: flex;
-  gap: 12px;
-  align-items: center;
+.blogShell {
+  gap: 20px;
 }
 
-.sectionBadge {
-  min-width: 54px;
-  height: 32px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  border: 1px solid var(--line-warm);
-  background: #fff3e6;
-  color: var(--accentWarm);
+.sectionMark {
+  position: absolute;
+  color: rgba(148, 163, 184, 0.38);
   font-family: var(--font-heading);
-  font-size: 0.85rem;
+  font-size: clamp(5.2rem, 10vw, 7.8rem);
   font-weight: 900;
+  line-height: 0.9;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sectionMarkRight {
+  top: 8px;
+  right: 10px;
+}
+
+.sectionMarkLeft {
+  top: 6px;
+  left: -4px;
+}
+
+.sectionHeader {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 12px;
+}
+
+.sectionTitleWrap {
+  display: grid;
+  gap: 4px;
+}
+
+.sectionNumber {
+  color: var(--muted-ink);
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
 }
 
 .sectionTitle {
   margin: 0;
-  color: #655647;
+  color: var(--ink);
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3.2vw, 2rem);
+  font-size: clamp(1.95rem, 4vw, 2.7rem);
   font-weight: 900;
+  letter-spacing: -0.04em;
 }
 
 .sectionLead {
   margin: 0;
-  color: var(--muted);
+  max-width: 34rem;
+  color: var(--muted-ink);
   font-size: 0.98rem;
   line-height: 1.7;
 }
 
+.sectionLink {
+  color: var(--muted-ink);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.sectionLink:hover,
+.sectionLink:focus-visible {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+  outline: none;
+}
+
 .linksGrid {
+  position: relative;
+  z-index: 1;
   display: grid;
-  gap: 12px;
+  gap: 18px;
+}
+
+.linksColumn {
+  display: grid;
+  gap: 22px;
 }
 
 .footer {
-  margin-top: 4px;
-  padding: 6px 6px 18px;
-  color: var(--subtext);
-  font-size: 0.8rem;
-  font-family: var(--font-body);
+  margin-top: 6px;
+  padding: 4px 2px 10px;
   display: flex;
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
+  color: var(--muted-ink);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
 }
 
 .overlayLead {
   margin: 0;
-  color: var(--muted);
+  color: var(--muted-ink);
   font-size: 1rem;
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
 .overlayGrid {
   display: grid;
-  gap: 16px;
+  gap: 18px;
 }
 
 .overlayMain {
   display: grid;
-  gap: 16px;
+  gap: 18px;
 }
 
 .overlaySide {
   display: grid;
-  gap: 16px;
+  gap: 18px;
 }
 
 .overlayCard {
+  border: 3px solid var(--border-strong);
   border-radius: 20px;
+  box-shadow: 8px 8px 0 var(--shadow-strong);
   padding: 18px;
   display: grid;
-  gap: 6px;
-  border: 1px solid var(--line);
+  gap: 10px;
 }
 
 .overlayCool {
-  background: var(--panel-cool);
-  border-color: var(--line-cool);
+  background: var(--paper-blue);
 }
 
 .overlayWarm {
-  background: var(--panel-warm);
-  border-color: var(--line-warm);
+  background: var(--paper-orange);
+}
+
+.overlayGreen {
+  background: var(--paper-green);
 }
 
 .overlayCardTitle {
   margin: 0;
-  font-family: var(--font-heading);
-  font-size: 1.35rem;
-  font-weight: 900;
   color: var(--ink);
-}
-
-.overlayWarm .overlayCardTitle,
-.overlayWarm .overlayBody,
-.overlayWarm .overlayListItem,
-.overlayWarm .overlayChip {
-  color: #655647;
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
 }
 
 .overlayBody {
   margin: 0;
   color: var(--text);
   font-size: 0.98rem;
-  line-height: 1.65;
+  line-height: 1.7;
+}
+
+.overlayTimeline {
+  display: grid;
+  gap: 12px;
 }
 
 .overlayList {
   display: grid;
-  gap: 8px;
+  gap: 10px;
 }
 
 .overlayYear {
-  margin: 6px 0 0;
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  font-weight: 900;
+  margin: 8px 0 0;
   color: var(--ink);
-}
-
-.overlayWarm .overlayYear {
-  color: #655647;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
 }
 
 .overlayListItem {
-  min-height: 46px;
-  display: flex;
-  align-items: flex-start;
-  padding: 10px 12px;
+  padding: 12px 14px;
+  border: 2px solid var(--border-soft);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.55);
-  border: 1px solid rgba(141, 180, 187, 0.55);
+  background: rgba(255, 255, 255, 0.54);
   color: var(--ink);
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .overlayListItem a {
   color: inherit;
-  font-weight: 700;
+  font-weight: 800;
   text-decoration: underline;
-  text-underline-offset: 0.15em;
-}
-
-.overlayWarm .overlayListItem {
-  border-color: rgba(237, 176, 123, 0.65);
+  text-underline-offset: 0.14em;
 }
 
 .overlayChips {
@@ -192,39 +248,200 @@
   gap: 8px;
 }
 
-.overlayChip {
-  display: inline-flex;
-  align-items: center;
-  min-height: 36px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.62);
-  border: 1px solid rgba(141, 180, 187, 0.55);
+.skillMatrixWrap {
+  display: grid;
+  gap: 16px;
+}
+
+.matrixHeader {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.matrixAxisTitle {
   color: var(--ink);
-  font-size: 0.9rem;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.matrixAxisHint {
+  color: var(--muted-ink);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
   font-weight: 700;
 }
 
-.overlayWarm .overlayChip {
-  border-color: rgba(237, 176, 123, 0.65);
+.matrixScroller {
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.matrixFrame {
+  min-width: 820px;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.matrixSideLabel {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: var(--muted-ink);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  align-self: stretch;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.matrixBoard {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border: 2px solid var(--border-soft);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.38);
+}
+
+.matrixTopLabels {
+  margin-left: 48px;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.matrixAxisValue {
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--border-soft);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--muted-ink);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.matrixRows {
+  display: grid;
+  gap: 8px;
+}
+
+.matrixGridRow {
+  display: grid;
+  grid-template-columns: 40px repeat(5, minmax(0, 1fr));
+  gap: 0;
+}
+
+.matrixRowLabel {
+  min-height: 90px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid rgba(15, 23, 42, 0.12);
+  background: transparent;
+  color: var(--muted-ink);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.matrixCell {
+  min-height: 118px;
+  border-left: 1px solid rgba(15, 23, 42, 0.1);
+  border-top: 1px solid rgba(15, 23, 42, 0.1);
+  background: transparent;
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+.matrixGridRow:first-child .matrixCell {
+  border-top: none;
+}
+
+.matrixSkill {
+  border: 2px solid rgba(15, 23, 42, 0.18);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 7px 8px;
+  display: grid;
+  gap: 4px;
+}
+
+.matrixSkillTitle {
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.overlayChip {
+  min-height: 34px;
+  padding: 6px 12px;
+  border: 2px solid var(--border-soft);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+}
+
+.overlayGreen .overlayListItem,
+.overlayGreen .matrixAxisValue,
+.overlayGreen .matrixBoard,
+.overlayGreen .matrixSkill,
+.overlayGreen .overlayChip,
+.overlayGreen .skillDot {
+  background: rgba(255, 255, 255, 0.62);
 }
 
 @media (min-width: 768px) {
   .container {
-    padding: 28px 40px 40px;
-    gap: 18px;
+    padding: 40px 40px 52px;
+    gap: 64px;
+  }
+
+  .sectionHeader {
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 420px);
+    align-items: start;
+    gap: 24px;
+  }
+
+  .sectionLead {
+    justify-self: end;
+    text-align: right;
+  }
+
+  .sectionLink {
+    justify-self: end;
+    align-self: end;
   }
 
   .linksGrid {
-    gap: 16px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
   }
 
-  .linksSection {
-    padding: 24px;
+  .linksColumnOffset {
+    padding-top: 34px;
   }
 
   .overlayGrid {
     grid-template-columns: minmax(0, 1fr) 280px;
   }
+
 }

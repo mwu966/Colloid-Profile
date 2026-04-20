@@ -5,7 +5,7 @@ import * as styles from "./LinkSectionCard.module.css"
 export default function LinkSectionCard({
   title,
   links,
-  tone = "cool",
+  tone = "base",
   className,
   style,
   ...rest

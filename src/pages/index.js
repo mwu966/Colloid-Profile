@@ -8,8 +8,11 @@ import * as styles from "./index.module.css"
 
 export const Head = () => (
   <>
-    <title>Colloid's Profile Portal Site - CollidのPortalサイト</title>
-    <meta name="description" content="Hello World" />
+    <title>Colloid Profile | Creative Archive Portal</title>
+    <meta
+      name="description"
+      content="Colloid の創作活動と技術活動をまとめたポートフォリオサイト。"
+    />
   </>
 )
 
@@ -18,6 +21,25 @@ export default function IndexPage({ data }) {
   const latestPosts = posts.slice(0, 4)
   const year = new Date().getFullYear()
   const [activeIntroKey, setActiveIntroKey] = React.useState(null)
+  const engineeringSkillItems = [
+    { title: "C#", experience: 5, specialty: 4 },
+    { title: "Java", experience: 5, specialty: 4 },
+    { title: "VB.NET", experience: 2, specialty: 2 },
+    { title: "Web API設計", experience: 5, specialty: 3 },
+    { title: "Swagger", experience: 5, specialty: 3 },
+    { title: "仕様整理", experience: 3, specialty: 3 },
+    { title: "インターフェース設計", experience: 5, specialty: 3 },
+    { title: "原因調査", experience: 5, specialty: 3 },
+    { title: "不具合対応", experience: 5, specialty: 3 },
+    { title: "移植検討", experience: 4, specialty: 2 },
+    { title: "アーキテクチャ移行", experience: 4, specialty: 2 },
+    { title: "AWS", experience: 3, specialty: 2 },
+    { title: "Oracle", experience: 2, specialty: 1 },
+    { title: "PostgreSQL", experience: 2, specialty: 1 },
+  ]
+  const skillAxisLevels = [1, 2, 3, 4, 5]
+  const skillSpecialtyLevels = [5, 4, 3, 2, 1]
+
   const introBlocks = [
     {
       key: "profile",
@@ -65,7 +87,7 @@ export default function IndexPage({ data }) {
   const linkCards = [
     {
       title: "SNS",
-      tone: "cool",
+      tone: "base",
       links: [
         {
           label: "X",
@@ -89,7 +111,7 @@ export default function IndexPage({ data }) {
     },
     {
       title: "お絵かき系",
-      tone: "warm",
+      tone: "orange",
       links: [
         {
           label: "pixiv",
@@ -106,26 +128,8 @@ export default function IndexPage({ data }) {
       ],
     },
     {
-      title: "同人通販",
-      tone: "cool",
-      links: [
-        {
-          label: "BOOTH",
-          id: "ミルク蒼屋.com",
-          icon: "booth",
-          url: "https://blueparticles.booth.pm/",
-        },
-        {
-          label: "メロンブックス",
-          id: "ミルク蒼屋の同人誌",
-          icon: "melon",
-          url: "https://www.melonbooks.co.jp/circle/index.php?circle_id=100689",
-        },
-      ],
-    },
-    {
       title: "技術系",
-      tone: "warm",
+      tone: "green",
       links: [
         {
           label: "Qiita",
@@ -147,6 +151,29 @@ export default function IndexPage({ data }) {
         },
       ],
     },
+    {
+      title: "同人通販",
+      tone: "blue",
+      links: [
+        {
+          label: "BOOTH",
+          id: "ミルク蒼屋.com",
+          icon: "booth",
+          url: "https://blueparticles.booth.pm/",
+        },
+        {
+          label: "メロンブックス",
+          id: "ミルク蒼屋の同人誌",
+          icon: "melon",
+          url: "https://www.melonbooks.co.jp/circle/index.php?circle_id=100689",
+        },
+      ],
+    },
+  ]
+
+  const linkColumns = [
+    [linkCards[0], linkCards[1]],
+    [linkCards[2], linkCards[3]],
   ]
 
   const introOverlayContent = {
@@ -164,16 +191,24 @@ export default function IndexPage({ data }) {
               </p>
             </section>
             <section className={`${styles.overlayCard} ${styles.overlayCool}`}>
-              <h3 className={styles.overlayCardTitle}>簡単な履歴</h3>
-              <p className={styles.overlayBody}>
-                平成一桁台に誕生。幼少期にWindows95に触れたのをきっかけにPCに興味を持ち、以降そこからITに関わる道を歩む。
-              </p>
-              <p className={styles.overlayBody}>
-                学生時代は趣味で二次創作のイラストを描いたりする。大学はコンピューター・サイエンスを専攻。
-              </p>
-              <p className={styles.overlayBody}>
-                社会人になってからは、システムエンジニアとして主にバックエンドの開発の携わる。片手間に二次創作で同人誌を作ったり、イラストを描いたりしている。
-              </p>
+              <h3 className={styles.overlayCardTitle}>ざっくりとした経歴</h3>
+              <div className={styles.overlayTimeline}>
+                <p className={styles.overlayBody}>
+                  平成一桁台に誕生。
+                  <br />
+                  幼少期に Windows95 に触れたのをきっかけに PC に興味を持ち、以降そこから IT に関わる道を歩む。
+                </p>
+                <p className={styles.overlayBody}>
+                  学生時代は趣味で二次創作のイラストを描いたりする。
+                  <br />
+                  大学はコンピューター・サイエンスを専攻。
+                </p>
+                <p className={styles.overlayBody}>
+                  社会人になってからは、システムエンジニアとして主にバックエンド開発に携わる。
+                  <br />
+                  片手間に二次創作で同人誌を作ったり、イラストを描いたりしている。
+                </p>
+              </div>
             </section>
           </div>
           <aside className={styles.overlaySide}>
@@ -351,52 +386,86 @@ export default function IndexPage({ data }) {
     },
     engineering: {
       title: "Engineering",
-      lead: "資格、スキル、経歴を一覧で把握できる、実務寄りの構成です。",
-      tone: "cool",
+      lead: "エンジニアとしてのスキルセットや経験についての雑な紹介です。",
+      tone: "green",
       render: () => (
-        <div className={styles.overlayGrid}>
-          <div className={styles.overlayMain}>
-            <section className={`${styles.overlayCard} ${styles.overlayCool}`}>
-              <h3 className={styles.overlayCardTitle}>資格</h3>
-              <div className={styles.overlayList}>
-                <div className={styles.overlayListItem}>基本情報技術者</div>
-                <div className={styles.overlayListItem}>色彩検定 2級</div>
-                <div className={styles.overlayListItem}>Webデザイン技能検定 など</div>
+        <div className={styles.overlayMain}>
+          <section className={`${styles.overlayCard} ${styles.overlayGreen}`}>
+            <h3 className={styles.overlayCardTitle}>資格</h3>
+            <div className={styles.overlayList}>
+              <div className={styles.overlayListItem}>
+                2026年 Microsoft認定資格 AI-900 取得
               </div>
-            </section>
-            <section className={`${styles.overlayCard} ${styles.overlayCool}`}>
-              <h3 className={styles.overlayCardTitle}>簡単な経歴</h3>
-              <p className={styles.overlayBody}>
-                制作系の個人活動と並行して、Web サイトや UI 実装の改善に携わる。
-              </p>
-              <p className={styles.overlayBody}>
-                React / CSS / コンポーネント設計を中心に、運用しやすい画面設計と実装を担当。
-              </p>
-              <p className={styles.overlayBody}>
-                近年はポートフォリオ改善、情報設計、アクセシビリティも含めて継続的に改善中。
-              </p>
-            </section>
-          </div>
-          <aside className={styles.overlaySide}>
-            <section className={`${styles.overlayCard} ${styles.overlayCool}`}>
-              <h3 className={styles.overlayCardTitle}>スキル</h3>
-              <div className={styles.overlayChips}>
-                <span className={styles.overlayChip}>React</span>
-                <span className={styles.overlayChip}>TypeScript</span>
-                <span className={styles.overlayChip}>HTML / CSS</span>
-                <span className={styles.overlayChip}>Gatsby</span>
-                <span className={styles.overlayChip}>Git</span>
-                <span className={styles.overlayChip}>UI設計</span>
-                <span className={styles.overlayChip}>アクセシビリティ</span>
+              <div className={styles.overlayListItem}>
+                2024年 AWS Certified Cloud Practitioner 取得
               </div>
-            </section>
-            <section className={`${styles.overlayCard} ${styles.overlayWarm}`}>
-              <h3 className={styles.overlayCardTitle}>想定導線</h3>
-              <p className={styles.overlayBody}>
-                職務経歴書、GitHub、制作事例、保有資格の証明ページへこのモーダルから分岐。
-              </p>
-            </section>
-          </aside>
+              <div className={styles.overlayListItem}>
+                2023年 Microsoft認定資格 AZ-104 取得
+              </div>
+              <div className={styles.overlayListItem}>
+                2021年 Microsoft認定資格 AZ-900 取得
+              </div>
+            </div>
+          </section>
+          <section className={`${styles.overlayCard} ${styles.overlayGreen}`}>
+            <h3 className={styles.overlayCardTitle}>スキルマップ</h3>
+            <div className={styles.skillMatrixWrap}>
+              <div className={styles.matrixHeader}>
+                <span className={styles.matrixAxisTitle}>実務経験</span>
+                <span className={styles.matrixAxisHint}>少ない → 多い</span>
+              </div>
+              <div className={styles.matrixScroller}>
+                <div className={styles.matrixFrame}>
+                  <div className={styles.matrixSideLabel}>得意分野</div>
+                  <div className={styles.matrixBoard}>
+                    <div className={styles.matrixTopLabels} aria-hidden="true">
+                      {skillAxisLevels.map((level) => (
+                        <span key={`x-${level}`} className={styles.matrixAxisValue}>
+                          {level}
+                        </span>
+                      ))}
+                    </div>
+                    <div className={styles.matrixRows}>
+                      {skillSpecialtyLevels.map((specialty) => (
+                        <div key={`row-${specialty}`} className={styles.matrixGridRow}>
+                          <span className={styles.matrixRowLabel}>{specialty}</span>
+                          {skillAxisLevels.map((experience) => {
+                            const cellSkills = engineeringSkillItems.filter(
+                              (skill) =>
+                                skill.experience === experience && skill.specialty === specialty
+                            )
+
+                            return (
+                              <div
+                                key={`cell-${specialty}-${experience}`}
+                                className={styles.matrixCell}
+                              >
+                                {cellSkills.map((skill) => (
+                                  <div key={skill.title} className={styles.matrixSkill}>
+                                    <span className={styles.matrixSkillTitle}>{skill.title}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            )
+                          })}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section className={`${styles.overlayCard} ${styles.overlayGreen}`}>
+            <h3 className={styles.overlayCardTitle}>ざっくりとした経歴</h3>
+            <p className={styles.overlayBody}>
+              人生初の仕事は保守とかでVB.NETとかWebFormsとか触っていた。<br />
+              その後自社製品を扱う会社に転職したら即吸収合併になり消滅。<br />
+              入りたかった会社が消滅したので落ち込む中、合併先で新規サービスを立ち上げることになり、そこでC#とかAWSを触る。また仕事のやり取りで英語の洗礼を受けてなんとか生き延びる。<br />
+              新規サービス立ち上げ後に職場を変え、今はJavaやC#を使ったWeb系の開発をしたり、AWSをいじったり、時には指導したり色々やってる。<br />
+              今後のAIの発展に怯えながらなんとか生きている。<br />
+            </p>
+          </section>
         </div>
       ),
     },
@@ -410,29 +479,64 @@ export default function IndexPage({ data }) {
         <section className={styles.reveal} data-animate style={{ transitionDelay: "0ms" }}>
           <HeroCard introBlocks={introBlocks} onIntroSelect={setActiveIntroKey} />
         </section>
-        <section id="links" className={styles.linksSection}>
-          <div className={styles.sectionHeading}>
-            <span className={styles.sectionBadge}>02</span>
-            <h2 className={styles.sectionTitle}>Links</h2>
+        <section
+          id="links"
+          className={`${styles.sectionShell} ${styles.reveal}`}
+          data-animate
+          style={{ transitionDelay: "40ms" }}
+        >
+          <span className={`${styles.sectionMark} ${styles.sectionMarkRight}`}>02</span>
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionTitleWrap}>
+              <span className={styles.sectionNumber}>02</span>
+              <h2 className={styles.sectionTitle}>Links</h2>
+            </div>
+            <p className={styles.sectionLead}>
+              各種SNSや同人通販サイトなどへのリンクをまとめています。
+            </p>
           </div>
-          <p className={styles.sectionLead}>
-            カテゴリ単位で探しやすく、リンク自体はボタンとして押しやすい構成です。
-          </p>
           <div className={styles.linksGrid}>
-            {linkCards.map((card, index) => (
-              <LinkSectionCard
-                key={card.title}
-                title={card.title}
-                links={card.links}
-                tone={card.tone}
-                className={styles.reveal}
-                data-animate
-                style={{ transitionDelay: `${80 * index}ms` }}
-              />
+            {linkColumns.map((column, columnIndex) => (
+              <div
+                key={`column-${columnIndex}`}
+                className={`${styles.linksColumn} ${columnIndex === 1 ? styles.linksColumnOffset : ""}`}
+              >
+                {column.map((card, cardIndex) => (
+                  <LinkSectionCard
+                    key={card.title}
+                    title={card.title}
+                    links={card.links}
+                    tone={card.tone}
+                    className={styles.reveal}
+                    data-animate
+                    style={{ transitionDelay: `${80 * (columnIndex * 2 + cardIndex + 1)}ms` }}
+                  />
+                ))}
+              </div>
             ))}
           </div>
         </section>
-        <section id="blog" className={styles.reveal} data-animate style={{ transitionDelay: "40ms" }}>
+        <section
+          id="blog"
+          className={`${styles.sectionShell} ${styles.blogShell} ${styles.reveal}`}
+          data-animate
+          style={{ transitionDelay: "80ms" }}
+        >
+          <span className={`${styles.sectionMark} ${styles.sectionMarkLeft}`}>03</span>
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionTitleWrap}>
+              <span className={styles.sectionNumber}>03</span>
+              <h2 className={styles.sectionTitle}>Blog</h2>
+            </div>
+            <a
+              href="https://colloidgel.hatenablog.com/"
+              className={styles.sectionLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ブログ｢ミルク蒼屋のチラシ｣へ
+            </a>
+          </div>
           <BlogCard posts={latestPosts} />
         </section>
         <footer className={styles.footer}>
