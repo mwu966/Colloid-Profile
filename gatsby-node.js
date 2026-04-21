@@ -1,8 +1,4 @@
 const Parser = require("rss-parser")
-const fs = require("fs")
-const path = require("path")
-
-const hatenaFallbackPath = path.join(__dirname, "src/data/hatena-posts.json")
 
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
@@ -30,12 +26,7 @@ exports.sourceNodes = async ({
     const feed = await parser.parseURL("https://colloidgel.hatenablog.com/rss")
     items = Array.isArray(feed?.items) ? feed.items : []
   } catch (error) {
-    try {
-      const fallbackJson = fs.readFileSync(hatenaFallbackPath, "utf8")
-      items = JSON.parse(fallbackJson)
-    } catch {
-      items = []
-    }
+    items = []
   }
 
   if (!Array.isArray(items) || items.length === 0) {

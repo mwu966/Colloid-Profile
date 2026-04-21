@@ -1,63 +1,100 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.com/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby Minimal Starter
-</h1>
+# Colloid Profile
 
-## 🚀 Quick start
+Colloid の創作活動と技術活動をまとめたポートフォリオサイトです。  
+Gatsby 5 で構築しており、GitHub Pages へデプロイしています。
 
-1.  **Create a Gatsby site.**
+- 本番URL: `https://mwu966.github.io/Colloid-Profile/`
+- フレームワーク: `Gatsby 5`
+- デプロイ先: `GitHub Pages`
 
-    Use the Gatsby CLI to create a new site, specifying the minimal starter.
+## 概要
 
-    ```shell
-    # create a new Gatsby site using the minimal starter
-    npm init gatsby
-    ```
+このサイトは以下の情報をまとめるための個人ポートフォリオです。
 
-2.  **Start developing.**
+- Profile
+- Creative
+- Engineering
+- Links
+- Blog
+- Wavebox
 
-    Navigate into your new site’s directory and start it up.
+Blog 一覧は Hatena Blog の RSS を元に生成しています。RSS 取得に失敗した場合は一覧を表示せず、ブログへのリンク導線のみ残します。
 
-    ```shell
-    cd my-gatsby-site/
-    npm run develop
-    ```
+## セットアップ
 
-3.  **Open the code and start customizing!**
+Node.js 24 系を想定しています。
 
-    Your site is now running at http://localhost:8000!
+```bash
+npm ci
+```
 
-    Edit `src/pages/index.js` to see your site update in real-time!
+## 開発
 
-4.  **Learn more**
+ローカル開発サーバーを起動します。
 
-    - [Documentation](https://www.gatsbyjs.com/docs/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Tutorials](https://www.gatsbyjs.com/docs/tutorial/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Guides](https://www.gatsbyjs.com/docs/how-to/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [API Reference](https://www.gatsbyjs.com/docs/api-reference/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Plugin Library](https://www.gatsbyjs.com/plugins?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
-    - [Cheat Sheet](https://www.gatsbyjs.com/docs/cheat-sheet/?utm_source=starter&utm_medium=readme&utm_campaign=minimal-starter)
+```bash
+npm run develop
+```
 
-## 🚀 Quick start (Netlify)
+起動後は `http://localhost:8000` で確認できます。
 
-Deploy this starter with one click on [Netlify](https://app.netlify.com/signup):
+## ビルド
 
-[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-minimal)
+本番ビルドを作成します。
 
-## Google Analytics
-
-This site uses `gatsby-plugin-google-gtag` for Google Analytics.
-
-Set your GA4 measurement ID before building or serving the production build:
-
-```shell
-export GA_MEASUREMENT_ID=G-XXXXXXXXXX
+```bash
 npm run build
+```
+
+ビルド結果をローカルで確認する場合:
+
+```bash
 npm run serve
 ```
 
-If `GA_MEASUREMENT_ID` is not set, the analytics script is not injected.
+GitHub Pages 用の `pathPrefix` 付きビルドを作る場合:
+
+```bash
+npm run deploy
+```
+
+## スクリプト
+
+- `npm run develop`: 開発サーバー起動
+- `npm run start`: `develop` のエイリアス
+- `npm run build`: 本番ビルド
+- `npm run serve`: ビルド済みファイルの確認
+- `npm run clean`: Gatsby キャッシュ削除
+- `npm run deploy`: GitHub Pages 向けビルド
+
+## Analytics
+
+Google Analytics には `gatsby-plugin-google-gtag` を使用しています。  
+`GA_MEASUREMENT_ID` を設定するとその値を使い、未設定時は `gatsby-config.js` 内の既定値を使います。
+
+```bash
+export GA_MEASUREMENT_ID=G-XXXXXXXXXX
+npm run build
+```
+
+## デプロイ
+
+`.github/workflows/gatsby-runner.yml` で GitHub Pages へ自動デプロイしています。
+
+- トリガー: `main` ブランチ push
+- 定期実行: 毎週
+- 手順: `npm ci --no-audit --no-fund` → `npm run deploy` → Pages へ反映
+
+## 主なファイル
+
+- [src/pages/index.js](./src/pages/index.js): トップページ
+- [src/data/homeContent.js](./src/data/homeContent.js): トップページの文言・リンク定義
+- [src/components/home/IntroOverlayContent.js](./src/components/home/IntroOverlayContent.js): Intro モーダル内容
+- [src/components/home/EngineeringSkillMatrix.js](./src/components/home/EngineeringSkillMatrix.js): Engineering のスキルマップ
+- [gatsby-config.js](./gatsby-config.js): Gatsby 設定
+- [gatsby-node.js](./gatsby-node.js): RSS 取得とデータ生成
+
+## メモ
+
+- GitHub Pages 向けに `pathPrefix: "/Colloid-Profile"` を設定しています。
+- フォントは Google Fonts を `gatsby-omni-font-loader` 経由で読み込んでいます。
