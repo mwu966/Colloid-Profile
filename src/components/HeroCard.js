@@ -9,7 +9,7 @@ export default function HeroCard({ introBlocks = [], onIntroSelect }) {
           <p className={styles.eyebrow}>PROFILES ARCHIVE PORTAL</p>
           <h1 className={styles.title}>Colloid Profile</h1>
           <p className={styles.mastheadCopy}>
-            本業システムエンジニアでたまに同人活動するColloidの創作と技術のアーカイブサイトです。
+            本業システムエンジニアでたまに同人活動するColloid(コロイド)の創作と技術のアーカイブサイトです。
           </p>
         </div>
         <div className={styles.heroTags} aria-label="Site categories">
