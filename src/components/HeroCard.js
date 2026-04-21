@@ -6,7 +6,7 @@ export default function HeroCard({ introBlocks = [], onIntroSelect }) {
     <div className={styles.stack}>
       <section className={styles.heroPanel}>
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>CREATIVE ARCHIVE PORTAL</p>
+          <p className={styles.eyebrow}>PROFILES ARCHIVE PORTAL</p>
           <h1 className={styles.title}>Colloid Profile</h1>
           <p className={styles.mastheadCopy}>
             本業システムエンジニアでたまに同人活動するColloidの創作と技術のアーカイブサイトです。

@@ -8,7 +8,7 @@ import * as styles from "./index.module.css"
 
 export const Head = () => (
   <>
-    <title>Colloid Profile | Creative Archive Portal</title>
+    <title>Colloid Profile Site</title>
     <meta
       name="description"
       content="Colloid の創作活動と技術活動をまとめたポートフォリオサイト。"
@@ -25,17 +25,18 @@ export default function IndexPage({ data }) {
     { title: "C#", experience: 5, specialty: 4 },
     { title: "Java", experience: 5, specialty: 4 },
     { title: "VB.NET", experience: 2, specialty: 2 },
-    { title: "Web API設計", experience: 5, specialty: 3 },
-    { title: "Swagger", experience: 5, specialty: 3 },
-    { title: "仕様整理", experience: 3, specialty: 3 },
-    { title: "インターフェース設計", experience: 5, specialty: 3 },
-    { title: "原因調査", experience: 5, specialty: 3 },
-    { title: "不具合対応", experience: 5, specialty: 3 },
-    { title: "移植検討", experience: 4, specialty: 2 },
-    { title: "アーキテクチャ移行", experience: 4, specialty: 2 },
-    { title: "AWS", experience: 3, specialty: 2 },
-    { title: "Oracle", experience: 2, specialty: 1 },
-    { title: "PostgreSQL", experience: 2, specialty: 1 },
+    { title: "WebForms", experience: 1, specialty: 2 },
+    { title: "HTML/CSS/JS", experience: 1, specialty: 2 },
+    { title: "自動テスト", experience: 1, specialty: 2 },
+    { title: "Web API", experience: 5, specialty: 3 },
+    { title: "WPF", experience: 3, specialty: 2 },
+    { title: "Blazor", experience: 3, specialty: 2 },
+    { title: "Spring Boot", experience: 2, specialty: 2 },
+    { title: "Git", experience: 5, specialty: 3 },
+    { title: "AWS", experience: 3, specialty: 3 },
+    { title: "Oracle DB", experience: 2, specialty: 1 },
+    { title: "PostgreSQL", experience: 4, specialty: 2 },
+    { title: "ETL", experience: 3, specialty: 3 },
   ]
   const skillAxisLevels = [1, 2, 3, 4, 5]
   const skillSpecialtyLevels = [5, 4, 3, 2, 1]
@@ -187,7 +188,7 @@ export default function IndexPage({ data }) {
             <section className={`${styles.overlayCard} ${styles.overlayCool}`}>
               <h3 className={styles.overlayCardTitle}>Colloid / コロイド</h3>
               <p className={styles.overlayBody}>
-                本職はシステムエンジニア。趣味で二次創作のイラストや漫画を描くオタク。
+                本職はバックエンド寄りのシステムエンジニア。趣味で二次創作のイラストや漫画を描く。
               </p>
             </section>
             <section className={`${styles.overlayCard} ${styles.overlayCool}`}>
@@ -409,6 +410,7 @@ export default function IndexPage({ data }) {
           </section>
           <section className={`${styles.overlayCard} ${styles.overlayGreen}`}>
             <h3 className={styles.overlayCardTitle}>スキルマップ</h3>
+            <p className={styles.skillMapNote}>主にバックエンド寄りの人です</p>
             <div className={styles.skillMatrixWrap}>
               <div className={styles.matrixHeader}>
                 <span className={styles.matrixAxisTitle}>実務経験</span>
@@ -465,6 +467,37 @@ export default function IndexPage({ data }) {
               新規サービス立ち上げ後に職場を変え、今はJavaやC#を使ったWeb系の開発をしたり、AWSをいじったり、時には指導したり色々やってる。<br />
               今後のAIの発展に怯えながらなんとか生きている。<br />
             </p>
+          </section>
+          <section className={`${styles.overlayCard} ${styles.overlayGreen}`}>
+            <h3 className={styles.overlayCardTitle}>登壇履歴</h3>
+            <div className={styles.overlayList}>
+              <div className={styles.overlayListItem}>
+                2020/11/21
+                {" "}
+                <a
+                  href="https://vscode.connpass.com/event/184441/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  VS Code Conference Japan 2020
+                </a>
+                {" "}
+                LT枠
+              </div>
+              <div className={styles.overlayListItem}>
+                2017/01/28
+                {" "}
+                <a
+                  href="https://jxug.connpass.com/event/47941/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  JXUGC #22 最新事例＆お前のアプリを説明してもらおうの会
+                </a>
+                {" "}
+                LT枠
+              </div>
+            </div>
           </section>
         </div>
       ),
@@ -539,9 +572,40 @@ export default function IndexPage({ data }) {
           </div>
           <BlogCard posts={latestPosts} />
         </section>
+        <section
+          id="wavebox"
+          className={`${styles.sectionShell} ${styles.reveal}`}
+          data-animate
+          style={{ transitionDelay: "120ms" }}
+        >
+          <span className={`${styles.sectionMark} ${styles.sectionMarkRight}`}>04</span>
+          <div className={styles.sectionHeader}>
+            <div className={styles.sectionTitleWrap}>
+              <span className={styles.sectionNumber}>04</span>
+              <h2 className={styles.sectionTitle}>Wavebox</h2>
+            </div>
+            <p className={styles.sectionLead}>
+              ひとこと感想や、軽いリアクション用の拍手置き場です。
+            </p>
+          </div>
+          <section className={styles.waveboxCard}>
+            <div className={styles.waveboxCopy}>
+              <p className={styles.waveboxBody}>
+                読んだよ、見たよ、くらいの軽いリアクションから、同人誌の感想等、短いメッセージまでどうぞ。
+              </p>
+            </div>
+            <a
+              href="https://wavebox.me/wave/axm2c8waalgd8m70/"
+              className={styles.waveboxButton}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className={styles.waveboxButtonLead}>👋 Wave を送る</span>
+            </a>
+          </section>
+        </section>
         <footer className={styles.footer}>
           <span>© {year} Colloid</span>
-          <span>Creative Archive Portal</span>
         </footer>
       </main>
       <Modal
