@@ -1,4 +1,8 @@
 const Parser = require("rss-parser")
+const fs = require("fs")
+const path = require("path")
+
+const hatenaFallbackPath = path.join(__dirname, "src/data/hatena-posts.json")
 
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
@@ -17,24 +21,28 @@ exports.sourceNodes = async ({
   actions,
   createNodeId,
   createContentDigest,
-  reporter,
 }) => {
   const { createNode } = actions
   const parser = new Parser()
-  let feed
+  let items = []
 
   try {
-    feed = await parser.parseURL("https://colloidgel.hatenablog.com/rss")
+    const feed = await parser.parseURL("https://colloidgel.hatenablog.com/rss")
+    items = Array.isArray(feed?.items) ? feed.items : []
   } catch (error) {
-    reporter.warn(`[hatena] RSS fetch failed: ${error.message}`)
+    try {
+      const fallbackJson = fs.readFileSync(hatenaFallbackPath, "utf8")
+      items = JSON.parse(fallbackJson)
+    } catch {
+      items = []
+    }
+  }
+
+  if (!Array.isArray(items) || items.length === 0) {
     return
   }
 
-  if (!feed || !Array.isArray(feed.items)) {
-    return
-  }
-
-  feed.items.forEach((item, index) => {
+  items.forEach((item, index) => {
     const isoDate =
       item.isoDate ||
       (item.pubDate ? new Date(item.pubDate).toISOString() : "")
