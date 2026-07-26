@@ -1,5 +1,47 @@
 const Parser = require("rss-parser")
 
+const HATENA_RSS_URL = "https://colloidgel.hatenablog.com/rss"
+const HATENA_RSS_MAX_ATTEMPTS = 3
+const HATENA_RSS_RETRY_DELAY_MS = 2000
+const HATENA_RSS_TIMEOUT_MS = 15000
+
+const wait = (milliseconds) =>
+  new Promise((resolve) => setTimeout(resolve, milliseconds))
+
+const fetchHatenaItems = async (reporter) => {
+  let lastError
+
+  for (let attempt = 1; attempt <= HATENA_RSS_MAX_ATTEMPTS; attempt += 1) {
+    try {
+      const parser = new Parser({ timeout: HATENA_RSS_TIMEOUT_MS })
+      const feed = await parser.parseURL(HATENA_RSS_URL)
+      const items = Array.isArray(feed?.items) ? feed.items : []
+
+      if (items.length === 0) {
+        throw new Error("RSS feed contained no posts")
+      }
+
+      reporter.info(`[hatena] Loaded ${items.length} posts from RSS`)
+      return items
+    } catch (error) {
+      lastError = error
+      reporter.warn(
+        `[hatena] RSS fetch attempt ${attempt}/${HATENA_RSS_MAX_ATTEMPTS} failed: ${error.message}`
+      )
+
+      if (attempt < HATENA_RSS_MAX_ATTEMPTS) {
+        await wait(HATENA_RSS_RETRY_DELAY_MS * attempt)
+      }
+    }
+  }
+
+  const error = new Error(
+    `[hatena] RSS fetch failed after ${HATENA_RSS_MAX_ATTEMPTS} attempts; aborting build`
+  )
+  error.cause = lastError
+  throw error
+}
+
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
 
@@ -17,21 +59,10 @@ exports.sourceNodes = async ({
   actions,
   createNodeId,
   createContentDigest,
+  reporter,
 }) => {
   const { createNode } = actions
-  const parser = new Parser()
-  let items = []
-
-  try {
-    const feed = await parser.parseURL("https://colloidgel.hatenablog.com/rss")
-    items = Array.isArray(feed?.items) ? feed.items : []
-  } catch (error) {
-    items = []
-  }
-
-  if (!Array.isArray(items) || items.length === 0) {
-    return
-  }
+  const items = await fetchHatenaItems(reporter)
 
   items.forEach((item, index) => {
     const isoDate =
