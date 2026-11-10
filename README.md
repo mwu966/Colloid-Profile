@@ -22,11 +22,15 @@ Blog 一覧は Hatena Blog の RSS を元に生成しています。RSS 取得�
 
 ## セットアップ
 
-Node.js 24 系を想定しています。
+Node.js 24 系を想定しています。`.nvmrc` を用意しているため、nvm を使う場合は `nvm use` で切り替えられます。
 
 ```bash
 npm ci
 ```
+
+React / React DOM は 18.3.1、Theme UI は 0.17.4 系を使用しています。
+フォント読み込みプラグインが依存する `react-side-effect` の対応範囲に合わせ、React 19 への更新は保留しています。
+Theme UI プラグインの peer dependencies は `package.json` に明示しています。
 
 ## 開発
 
@@ -65,6 +69,7 @@ npm run deploy
 - `npm run build`: 本番ビルド
 - `npm run serve`: ビルド済みファイルの確認
 - `npm run clean`: Gatsby キャッシュ削除
+- `npm run test:dependencies`: セキュリティ修正で差し替えた依存APIの互換性テスト
 - `npm run deploy`: GitHub Pages 向けビルド
 
 ## Analytics
@@ -98,3 +103,37 @@ npm run build
 
 - GitHub Pages 向けに `pathPrefix: "/Colloid-Profile"` を設定しています。
 - フォントは Google Fonts を `gatsby-omni-font-loader` 経由で読み込んでいます。
+
+## 依存関係の更新状況（2026-11-10）
+
+- React / React DOM: 18.2.0 → 18.3.1
+- Theme UI と関連パッケージ: 0.16.2 → 0.17.4
+- gh-pages: 6.1.1 → 6.3.0
+- その他の間接依存は、各パッケージの互換範囲内で更新しています。
+- ロックファイルは npm 11 による形式（lockfileVersion 3）に更新しています。
+- `npm ci --no-audit --no-fund` と GitHub Pages 向けの `npm run deploy` の成功を確認しています。
+
+通常の依存更新で `npm audit` の指摘を 87 件から 58 件に減らした後、
+`overrides` で間接依存の修正版を指定し、29 件（High 0、Moderate 14、Low 15、Critical 0）まで減らしています。
+Gatsby 3 へのダウングレードなどが提示される `npm audit fix --force` は適用していません。
+
+| 差し替え対象 | 指定バージョン | 対応内容 |
+| --- | --- | --- |
+| `@graphql-tools/utils` / `schema` / `merge` | 13.2.2 / 11.0.9 / 10.0.9 | プロトタイプ汚染の修正と、コード生成APIの互換性維持 |
+| `query-string` | 10.0.0 | 脆弱な `decode-uri-component` に依存しない版へ更新 |
+| `immutable` / `lodash` | 3.8.4 / 4.18.1 | プロトタイプ汚染、処理停止、コード注入の修正 |
+| `path-to-regexp` | 0.1.13 | 正規表現による処理停止の修正 |
+| `serialize-javascript` | 7.1.4 | コード注入・XSS・処理停止の修正 |
+| `sharp` | 0.35.5 | 同梱画像処理ライブラリの脆弱性修正 |
+| `tmp` | 0.2.7 | 一時ファイル作成時のパストラバーサル修正 |
+| `webpack-dev-middleware` | 7.4.6 | 開発サーバーのパストラバーサル修正 |
+
+一部は Gatsby が指定するバージョン範囲を超えるため、Node.js 24 系で使用してください。
+互換性テストは開発用404ページのクエリ文字列、GraphQLコード生成、GatsbyのSharpラッパー経由の画像変換、
+Webpackが使うJavaScriptシリアライズを確認します。
+GitHub Actions でも本番ビルドの前に互換性テストを実行します。
+開発サーバーの起動、トップ・自己紹介ページ・開発用404のデータ・JavaScript配信、GraphQLでのRSS記事30件取得も確認しています。
+今後 Gatsby の依存指定が更新された際は、監査と互換性テストを実行して各 override の解除を検討してください。
+
+インストール時には Gatsby 内部の実験的な `react-server-dom-webpack` の peer dependency 警告や、
+間接依存の非推奨警告が引き続き表示されます。

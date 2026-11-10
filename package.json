@@ -13,19 +13,38 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "test:dependencies": "node --test scripts/dependency-compatibility.test.cjs",
     "deploy": "gatsby build --prefix-paths"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@mdx-js/react": "^2.3.0",
+    "@theme-ui/css": "^0.17.4",
+    "@theme-ui/mdx": "^0.17.4",
     "gatsby": "^5.16.1",
     "gatsby-omni-font-loader": "^2.0.2",
     "gatsby-plugin-google-gtag": "^5.16.0",
-    "gatsby-plugin-theme-ui": "^0.16.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "gatsby-plugin-theme-ui": "^0.17.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
-    "rss-parser": "^3.13.0"
+    "rss-parser": "^3.13.0",
+    "theme-ui": "^0.17.4"
   },
   "devDependencies": {
-    "gh-pages": "^6.1.1"
+    "gh-pages": "^6.3.0"
+  },
+  "overrides": {
+    "@graphql-tools/merge": "10.0.9",
+    "@graphql-tools/schema": "11.0.9",
+    "@graphql-tools/utils": "13.2.2",
+    "immutable": "3.8.4",
+    "lodash": "4.18.1",
+    "path-to-regexp": "0.1.13",
+    "query-string": "10.0.0",
+    "serialize-javascript": "7.1.4",
+    "sharp": "0.35.5",
+    "tmp": "0.2.7",
+    "webpack-dev-middleware": "7.4.6"
   }
 }
