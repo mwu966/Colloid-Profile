@@ -120,6 +120,20 @@ export const PROFILE_HOBBIES = [
 
 export const CREATIVE_WORKS_BY_YEAR = [
   {
+    year: "2026",
+    items: [
+      {
+        label: "Arts in Sanity #5",
+        links: [
+          {
+            label: "ポグラニチニクの休暇に三人",
+            url: "https://blueparticles.booth.pm/items/9093305",
+          },
+        ],
+      },
+    ],
+  },
+  {
     year: "2025",
     items: [
       {
