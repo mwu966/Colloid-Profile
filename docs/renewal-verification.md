@@ -91,3 +91,9 @@ Playwrightを利用可能な環境で `node scripts/portal-browser-check.mjs` �
 
 `src/data/homeContent.js`、`gatsby-node.js`、依存定義・ロックファイル、デプロイワークフローは変更していない。
 作業前から存在した未追跡ファイルは保持。コミット、push、PR作成、デプロイは実施していない。
+
+## PRレビュー対応（High 2件）
+
+リンク／メニュー起点のセクション移動完了後は見出しへフォーカスを移し、フラグメントをpushStateで同期。長い前景本文がその方向へスクロールできる場合は上下キー・PageUp/Downのネイティブ操作を優先し、リンク・ボタン・タブ等の操作部品ではキーを横取りしない。
+
+`scripts/portal-keyboard-check.mjs` により、Chromium／Firefox・通常／モーション軽減設定で、Enterによる移動、見出しフォーカス、URL／履歴、本文スクロール、操作部品のキー保持を確認。レビューのMedium 2件（NVDA／VoiceOverの読み上げ・フォーカス実機確認）は未検証。

@@ -134,5 +134,5 @@ export function SiteHeader({ active, dark = false, onNavigate }) {
 }
 
 export function SectionPanel({ number, title, children }) {
-  return <div className="section-left"><div className="section-label"><span className="section-number" aria-hidden="true">{number}</span><h2 id={`${title.toLowerCase()}-heading`} className={`section-title ${title === "WaveBox" ? "section-title-wave" : ""}`}>{title}</h2><span className="section-divider" aria-hidden="true" /><p className="section-description">{children}</p></div></div>
+  return <div className="section-left"><div className="section-label"><span className="section-number" aria-hidden="true">{number}</span><h2 tabIndex={-1} id={`${title.toLowerCase()}-heading`} className={`section-title ${title === "WaveBox" ? "section-title-wave" : ""}`}>{title}</h2><span className="section-divider" aria-hidden="true" /><p className="section-description">{children}</p></div></div>
 }

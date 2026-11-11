@@ -26,7 +26,7 @@ export default function useSectionNavigation(rootRef) {
       const layer = target.closest?.(".scene-layer")
       return layer && (direction > 0 ? layer.scrollTop + layer.clientHeight < layer.scrollHeight - 2 : layer.scrollTop > 2)
     }
-    function go(index) {
+    function go(index, { focus = false, history = false } = {}) {
       cancelAnimationFrame(frame)
       frame = 0
       moving = false
@@ -34,7 +34,16 @@ export default function useSectionNavigation(rootRef) {
       const start = window.scrollY
       const destination = root.getBoundingClientRect().top + start + target * stage.offsetHeight
       const distance = destination - start
-      if (Math.abs(distance) < 1) { targetIndex = null; return }
+      function complete() {
+        if (history && window.location.hash !== `#${ids[target]}`) window.history.pushState(null, "", `#${ids[target]}`)
+        if (focus) frame = requestAnimationFrame(() => {
+          frame = requestAnimationFrame(() => {
+            frame = 0
+            document.getElementById(target === 0 ? "top-title" : `${ids[target]}-heading`)?.focus({ preventScroll: true })
+          })
+        })
+      }
+      if (Math.abs(distance) < 1) { targetIndex = null; complete(); return }
       targetIndex = target
       const duration = reduced.matches ? 0 : 720
       const started = performance.now()
@@ -44,20 +53,22 @@ export default function useSectionNavigation(rootRef) {
         const ease = progress < .5 ? 4 * progress ** 3 : 1 - (-2 * progress + 2) ** 3 / 2
         window.scrollTo({ top: start + distance * ease, behavior: "instant" })
         if (progress < 1) frame = requestAnimationFrame(tick)
-        else { moving = false; frame = 0; targetIndex = null }
+        else { moving = false; frame = 0; targetIndex = null; complete() }
       }
       frame = requestAnimationFrame(tick)
     }
-    function step(direction) {
+    function step(direction, options) {
       const current = position()
-      go(direction > 0 ? Math.floor(current + .05) + 1 : Math.ceil(current - .05) - 1)
+      go(direction > 0 ? Math.floor(current + .05) + 1 : Math.ceil(current - .05) - 1, options)
     }
     function onKey(event) {
       if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || blocked(event)) return
       const direction = ["ArrowDown", "PageDown"].includes(event.key) ? 1 : ["ArrowUp", "PageUp"].includes(event.key) ? -1 : 0
       if (!direction) return
+      if (event.target.closest?.('a, button, summary, [role=button], [role=link], [role=tab], [role=menuitem], [role=combobox], [role=listbox], [role=spinbutton]')) return
+      if (canScrollForeground(event.target, direction)) return
       event.preventDefault()
-      if (!moving && !event.repeat) step(direction)
+      if (!moving && !event.repeat) step(direction, { focus: true })
     }
     function onWheel(event) {
       if (event.ctrlKey || blocked(event) || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return
@@ -81,11 +92,11 @@ export default function useSectionNavigation(rootRef) {
       const index = ids.indexOf(id)
       if (index < 0) return
       event.preventDefault()
-      go(index)
+      go(index, { focus: true, history: true })
     }
     function onNavigate(event) {
       const index = ids.indexOf(event.detail)
-      if (index >= 0) go(index)
+      if (index >= 0) go(index, { focus: true, history: true })
     }
     function onTouchStart(event) {
       if (!blocked(event) && event.touches.length === 1) touch = { x: event.touches[0].clientX, y: event.touches[0].clientY, target: event.target }
