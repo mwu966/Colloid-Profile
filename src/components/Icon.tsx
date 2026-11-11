@@ -1,45 +1,15 @@
 import * as React from "react"
+import icons from "./fontawesome-icons.json"
 
-export type IconName =
-  | "x"
-  | "bluesky"
-  | "mixi2"
-  | "pixiv"
-  | "xfolio"
-  | "booth"
-  | "melon"
-  | "qiita"
-  | "zenn"
-  | "github"
+// Font Awesome Free 6.7.2 © Fonticons, Inc. Icons licensed CC BY 4.0.
+// https://fontawesome.com/license/free — same icons as the original site's kit.
+export type IconName = keyof typeof icons
 
-type Props = {
-  name: IconName
-  size?: number
-  className?: string
-  title?: string
-}
-
-const iconClassMap: Record<IconName, string> = {
-  x: "fa-brands fa-x-twitter",
-  bluesky: "fa-brands fa-bluesky",
-  mixi2: "fa-solid fa-m",
-  pixiv: "fa-brands fa-pixiv",
-  xfolio: "fa-regular fa-images",
-  booth: "fa-solid fa-store",
-  melon: "fa-solid fa-book",
-  qiita: "fa-solid fa-q",
-  zenn: "fa-solid fa-z",
-  github: "fa-brands fa-github",
-}
+type Props = { name: IconName; size?: number; className?: string; title?: string }
 
 export function Icon({ name, size = 18, className, title }: Props) {
-  return (
-    <i
-      className={`${iconClassMap[name]}${className ? ` ${className}` : ""}`}
-      style={{ fontSize: size, lineHeight: 1 }}
-      aria-hidden={title ? undefined : true}
-      aria-label={title}
-      role={title ? "img" : "presentation"}
-    />
-  )
+  const icon = icons[name]
+  return <svg viewBox={icon.viewBox} width={size} height={size} className={className} fill="currentColor" aria-hidden={title ? undefined : true} aria-label={title} role={title ? "img" : undefined} focusable="false">
+    {icon.paths.map((path, index) => <path key={index} d={path} />)}
+  </svg>
 }

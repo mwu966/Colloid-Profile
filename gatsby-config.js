@@ -5,7 +5,7 @@ const gaMeasurementId = process.env.GA_MEASUREMENT_ID || `G-DQXHTCPQG2`
 
 module.exports = {
   siteMetadata: {
-    title: `Colloid-Profile`,
+    title: `Colloid Archive Portal`,
     siteUrl: `https://mwu966.github.io/Colloid-Profile/`,
   },
   pathPrefix: "/Colloid-Profile",
@@ -17,23 +17,12 @@ module.exports = {
         enableListener: true,
         preconnect: ["https://fonts.googleapis.com", "https://fonts.gstatic.com"],
         web: [
-          {
-            name: "Kaisei Decol",
-            file: `https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@500;600&display=swap`,
-          },
-          {
-            name: "Noto Sans JP",
-            file: `https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap`,
-          },
-          {
-            name: "Zen Kaku Gothic New",
-            file: `https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@500;700;900&display=swap`,
-          },
-          {
-            name: "Montserrat",
-            file: `https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;900&display=swap`,
-          },
-      ],
+          { name: "Noto Color Emoji", file: "https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&text=%F0%9F%91%8B&display=swap" },
+          { name: "Righteous", file: "https://fonts.googleapis.com/css2?family=Righteous&display=swap" },
+          { name: "Dela Gothic One", file: "https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" },
+          { name: "Noto Sans JP", file: "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" },
+          { name: "Zen Kaku Gothic New", file: "https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" },
+        ],
     },
   },
     `gatsby-plugin-theme-ui`,

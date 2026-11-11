@@ -1,11 +1,8 @@
 const React = require("react")
 
-exports.onRenderBody = ({ setHeadComponents }) => {
+exports.onRenderBody = ({ setHtmlAttributes, setHeadComponents }) => {
+  setHtmlAttributes({ lang: "ja" })
   setHeadComponents([
-    React.createElement("script", {
-      key: "fontawesome-kit",
-      src: "https://kit.fontawesome.com/9668707a92.js",
-      crossOrigin: "anonymous",
-    }),
+    React.createElement("meta", { key: "theme-color", name: "theme-color", content: "#102A43" }),
   ])
 }

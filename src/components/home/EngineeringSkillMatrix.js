@@ -1,62 +1,18 @@
 import * as React from "react"
-import {
-  ENGINEERING_SKILL_ITEMS,
-  SKILL_AXIS_LEVELS,
-  SKILL_SPECIALTY_LEVELS,
-} from "../../data/homeContent"
-import * as styles from "../../pages/index.module.css"
-
-const skillsByPosition = ENGINEERING_SKILL_ITEMS.reduce((map, skill) => {
-  const key = `${skill.specialty}-${skill.experience}`
-  const positionedSkills = map.get(key) || []
-
-  positionedSkills.push(skill)
-  map.set(key, positionedSkills)
-
-  return map
-}, new Map())
-
-function getCellSkills(experience, specialty) {
-  return skillsByPosition.get(`${specialty}-${experience}`) || []
-}
+import { ENGINEERING_SKILL_ITEMS, SKILL_AXIS_LEVELS, SKILL_SPECIALTY_LEVELS } from "../../data/homeContent"
 
 export default function EngineeringSkillMatrix() {
-  return (
-    <div className={styles.skillMatrixWrap}>
-      <div className={styles.matrixHeader}>
-        <span className={styles.matrixAxisTitle}>実務経験</span>
-        <span className={styles.matrixAxisHint}>少ない → 多い</span>
-      </div>
-      <div className={styles.matrixScroller}>
-        <div className={styles.matrixFrame}>
-          <div className={styles.matrixSideLabel}>得意分野</div>
-          <div className={styles.matrixBoard}>
-            <div className={styles.matrixTopLabels} aria-hidden="true">
-              {SKILL_AXIS_LEVELS.map((level) => (
-                <span key={`x-${level}`} className={styles.matrixAxisValue}>
-                  {level}
-                </span>
-              ))}
-            </div>
-            <div className={styles.matrixRows}>
-              {SKILL_SPECIALTY_LEVELS.map((specialty) => (
-                <div key={`row-${specialty}`} className={styles.matrixGridRow}>
-                  <span className={styles.matrixRowLabel}>{specialty}</span>
-                  {SKILL_AXIS_LEVELS.map((experience) => (
-                    <div key={`cell-${specialty}-${experience}`} className={styles.matrixCell}>
-                      {getCellSkills(experience, specialty).map((skill) => (
-                        <div key={skill.title} className={styles.matrixSkill}>
-                          <span className={styles.matrixSkillTitle}>{skill.title}</span>
-                        </div>
-                      ))}
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+  return <>
+    <div className="desktop-skill-map" aria-hidden="true">
+      <p className="skill-experience">実務経験　少ない → 多い</p>
+      <div className="skill-map-layout"><span className="skill-specialty">得意分野<br />高い<br />↑<br />↓<br />低い</span><div className="skill-map-board"><div className="skill-map-labels">{SKILL_AXIS_LEVELS.map(level => <span key={level}>{level}</span>)}</div><div className="skill-map-grid">{SKILL_SPECIALTY_LEVELS.flatMap(specialty => SKILL_AXIS_LEVELS.map(experience => <div className="skill-map-cell" key={`${specialty}-${experience}`}>{ENGINEERING_SKILL_ITEMS.filter(skill => skill.specialty === specialty && skill.experience === experience).map(skill => <span key={skill.title}>{skill.title}</span>)}</div>))}</div></div></div>
     </div>
-  )
+    <div className="skill-rating-wrap"><ul className="skill-rating-list">{ENGINEERING_SKILL_ITEMS.map(skill => <li key={skill.title} className="skill-rating-item">
+      <h4>{skill.title}</h4>
+      <div className="skill-ratings">{[["実務経験", skill.experience], ["得意分野", skill.specialty]].map(([label, value]) => <div className="skill-rating" key={label}>
+        <span className="skill-rating-label">{label}</span>
+        <div className="skill-rating-value"><span className="skill-segments" role="meter" aria-label={`${skill.title} ${label}`} aria-valuemin={0} aria-valuemax={5} aria-valuenow={value} aria-valuetext={`5段階中${value}`}>{SKILL_AXIS_LEVELS.map(level => <i key={level} className={level <= value ? "is-active" : ""} aria-hidden="true" />)}</span><span className="skill-rating-number" aria-hidden="true">{value}/5</span></div>
+      </div>)}</div>
+    </li>)}</ul></div>
+  </>
 }

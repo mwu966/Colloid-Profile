@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Link } from "gatsby"
 import Header from "../components/header"
 import * as styles from "./about.module.css"
 
@@ -27,9 +28,9 @@ export default function AboutPage() {
           <p>
             まだ工事中の場所も多いですが、少しずつ整備していく予定です。どうぞゆっくり見ていってください。
           </p>
-          <a href="/" className={styles.back}>
+          <Link to="/" className={styles.back}>
             戻る
-          </a>
+          </Link>
         </section>
       </main>
     </div>
