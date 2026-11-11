@@ -23,15 +23,13 @@ function ProfileOverlayContent() {
   </>
 }
 
-const creativeYears = CREATIVE_WORKS_BY_YEAR.flatMap(group => group.year === "2016 / 2014"
-  ? [{ year: "2016", items: group.items.slice(0, 1) }, { year: "2014", items: group.items.slice(1) }]
-  : [group])
+const creativeYears = CREATIVE_WORKS_BY_YEAR
 
 function CreativeOverlayContent() {
   return <>
     <p>同人サークル｢ミルク蒼屋｣にて、主に東方Project、DDR(BEMANIシリーズ)二次創作同人誌を発行しています。</p>
     <ContentSection title="同人活動履歴"><p>各タイトルのリンク先は、BOOTH の販売ページまたは pixiv のサンプルページです。</p>
-      <div className="creative-history">{creativeYears.map(group => <section className="history-year" key={group.year} aria-labelledby={`year-${group.year.replace(/\D/g, "")}`}><h4 id={`year-${group.year.replace(/\D/g, "")}`}>{group.year}</h4><ul>{group.items.map(item => <li key={item.label}><span>{item.label}　/　</span>{item.links.map((link, i) => <React.Fragment key={link.url}>{i ? " / " : null}<ExternalLink href={link.url}>{link.label}<GlyphIcon name="arrow-up-right" size={16} /></ExternalLink></React.Fragment>)}{item.tail ? <span> {item.tail}</span> : null}</li>)}</ul></section>)}</div>
+      <div className="creative-history">{creativeYears.map(group => <section className="history-year" key={group.year} aria-labelledby={`year-${group.year.replace(/\D/g, "")}`}><h4 id={`year-${group.year.replace(/\D/g, "")}`}>{group.year}</h4><ul>{group.items.map(item => <li key={item.label}><span>{item.label}{item.links.length ? "　/　" : ""}</span>{item.links.map((link, i) => <React.Fragment key={link.url}>{i ? " / " : null}<ExternalLink href={link.url}>{link.label}<GlyphIcon name="arrow-up-right" size={16} /></ExternalLink></React.Fragment>)}{item.tail ? <span> {item.tail}</span> : null}</li>)}</ul></section>)}</div>
     </ContentSection>
   </>
 }

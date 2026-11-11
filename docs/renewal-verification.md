@@ -97,3 +97,9 @@ Playwrightを利用可能な環境で `node scripts/portal-browser-check.mjs` �
 リンク／メニュー起点のセクション移動完了後は見出しへフォーカスを移し、フラグメントをpushStateで同期。長い前景本文がその方向へスクロールできる場合は上下キー・PageUp/Downのネイティブ操作を優先し、リンク・ボタン・タブ等の操作部品ではキーを横取りしない。
 
 `scripts/portal-keyboard-check.mjs` により、Chromium／Firefox・通常／モーション軽減設定で、Enterによる移動、見出しフォーカス、URL／履歴、本文スクロール、操作部品のキー保持を確認。レビューのMedium 2件（NVDA／VoiceOverの読み上げ・フォーカス実機確認）は未検証。
+
+## 履歴Markdown連携
+
+`history.md` に2026年の新刊を追加し、頒布・参加履歴の唯一の編集元に変更。Webpackのasset/sourceでMarkdownを読み込み、共通パーサーで年別に表示する。JavaScript内の履歴コピーと2016/2014専用の分割処理を削除した。既刊参加のみの行も表示する。
+
+GHAの既存main push・定期・手動実行に履歴検証を追加。編集手順はREADMEを参照。パーサーの3テスト、パス付き本番ビルド、Firefoxの詳細画面における全作品URLと年別表示を検証済み。実際のGHAデプロイはmainマージ後。

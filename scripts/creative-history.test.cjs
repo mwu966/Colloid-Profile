@@ -1,0 +1,22 @@
+const { test } = require('node:test')
+const assert = require('node:assert/strict')
+const { readFileSync } = require('node:fs')
+const { parseCreativeHistory } = require('../src/lib/creativeHistory.cjs')
+test('Markdown supports date ranges, multiple books and participation-only records', () => {
+ const groups = parseCreativeHistory('2020/08/08 - 2020/08/10 秋葉原超同人祭 [A](https://example.com/a)、[B](https://example.com/b)を頒布\n2026 展示 既刊で参加')
+ assert.equal(groups[0].year, '2026')
+ assert.equal(groups[0].items[0].links.length, 0)
+ assert.equal(groups[1].items[0].label, '秋葉原超同人祭')
+ assert.equal(groups[1].items[0].links.length, 2)
+})
+test('Every Markdown history line and link is retained', () => {
+ const md = readFileSync('history.md', 'utf8')
+ const items = parseCreativeHistory(md).flatMap(g => g.items)
+ assert.equal(items.length, md.trim().split('\n').filter(line => line.trim() && !line.startsWith('#') && !line.startsWith('<!--')).length)
+ assert.equal(items.flatMap(i => i.links).length, [...md.matchAll(/\]\(https?:/g)].length)
+ assert.deepEqual(items.flatMap(i => i.links.map(link => link.url)).sort(), [...md.matchAll(/\]\((https?:\/\/[^)]+)\)/g)].map(match => match[1]).sort())
+})
+test('Malformed records fail instead of silently disappearing', () => {
+ assert.throws(() => parseCreativeHistory('不正な履歴'), /history.md:1/)
+ assert.throws(() => parseCreativeHistory('2026 展示 [本](javascript:alert)'), /リンク形式/)
+})

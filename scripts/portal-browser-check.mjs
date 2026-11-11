@@ -1,7 +1,10 @@
 import assert from 'node:assert/strict'
 import { mkdir, readFile } from 'node:fs/promises'
 const { chromium, firefox } = await import(process.env.PLAYWRIGHT_MODULE || 'playwright')
-const contentSource = await readFile('src/data/homeContent.js', 'utf8')
+let contentSource = await readFile('src/data/homeContent.js', 'utf8')
+const { parseCreativeHistory } = await import('../src/lib/creativeHistory.cjs')
+const history = parseCreativeHistory(await readFile('history.md', 'utf8'))
+contentSource = contentSource.replace(/^import .*\n/gm, '').replace('parseCreativeHistory(historyMarkdown)', JSON.stringify(history))
 const content = await import(`data:text/javascript;base64,${Buffer.from(contentSource).toString('base64')}`)
 const base = process.env.PORTAL_URL || 'http://localhost:8000/'
 const output = process.env.PORTAL_SCREENSHOTS || '/tmp/colloid-portal-check'
@@ -66,7 +69,7 @@ for (const engine of engines) {
       const detail = page.locator('.intro-detail')
       assert(await detail.evaluate(el => el.open))
       const engineeringFontSize = await detail.locator('#detail-title').evaluate(el => getComputedStyle(el).fontSize)
-      assert.equal(await page.locator('.skill-table tbody tr').count(), content.ENGINEERING_SKILL_ITEMS.length)
+      assert.equal(await page.locator('.skill-rating-item').count(), content.ENGINEERING_SKILL_ITEMS.length)
       for (const item of content.ENGINEERING_CAREER_SUMMARY) assert((await detail.innerText()).includes(item))
       for (const item of content.ENGINEERING_CERTIFICATIONS) assert((await detail.innerText()).includes(item))
       assert.equal(await detail.locator('.talk-list a').count(), content.ENGINEERING_TALKS.length)
@@ -81,7 +84,7 @@ for (const engine of engines) {
       assert(endGap >= 0 && endGap <= 34, `extra bottom scroll: ${endGap}`)
       await detail.getByRole('button', { name: 'Creative', exact: true }).click()
       for (const group of content.CREATIVE_WORKS_BY_YEAR) for (const item of group.items) for (const link of item.links) assert.equal(await detail.locator(`a[href="${link.url}"]`).count(), 1)
-      assert.equal(await detail.locator('.history-year').count(), content.CREATIVE_WORKS_BY_YEAR.length + 1)
+      assert.equal(await detail.locator('.history-year').count(), content.CREATIVE_WORKS_BY_YEAR.length)
       assert.equal(await detail.locator('h4#year-2016').innerText(), '2016')
       assert.equal(await detail.locator('h4#year-2014').innerText(), '2014')
       const backBefore = viewport.width < 768 ? null : await detail.locator('.detail-return-fixed').boundingBox()

@@ -137,3 +137,19 @@ GitHub Actions でも本番ビルドの前に互換性テストを実行しま�
 
 インストール時には Gatsby 内部の実験的な `react-server-dom-webpack` の peer dependency 警告や、
 間接依存の非推奨警告が引き続き表示されます。
+
+## 同人活動履歴の更新
+
+ルートの `history.md` が頒布・参加履歴の編集元です。`src/data/homeContent.js` の二重編集は不要です。
+
+1行に1イベントを、新しいものから順に記載します。
+
+```markdown
+2026 Arts in Sanity #5 [ポグラニチニクの休暇に三人](https://blueparticles.booth.pm/items/9093305)を頒布
+2025/12/31 イベント名 [作品名](https://example.com/book)を頒布
+2025/01/01 イベント名 既刊で参加
+```
+
+年だけの記録、日付、日付範囲、1イベント内の複数作品リンクに対応します。本文の表記はMarkdownをそのまま使用し、画面では年別にまとめます。
+
+`main` へ反映すると既存のGitHub Pages Actionsが検証・ビルド・デプロイします。作業ブランチの場合はPRをmainにマージしてから公開されます。定期実行・手動実行でも最新のMarkdownを読み込みます。形式は `node --test scripts/creative-history.test.cjs` で検証できます。開発サーバーでもMarkdown変更が反映されます。
