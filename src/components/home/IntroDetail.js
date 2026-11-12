@@ -11,6 +11,9 @@ export default function IntroDetail({ initialKey, onClose }) {
   const heading = React.useRef(null)
   const timer = React.useRef(null)
   const target = React.useRef(null)
+  const closingRef = React.useRef(false)
+  const historyNavigation = React.useRef(false)
+  const closeHandler = React.useRef(null)
   const content = INTRO_OVERLAY_CONTENT[activeKey]
   const Content = content.Content
 
@@ -23,9 +26,12 @@ export default function IntroDetail({ initialKey, onClose }) {
     const opener = document.activeElement
     const scrollY = window.scrollY
     const originalStageHeight = document.querySelector(".opening-stage").offsetHeight
+    const onHistory = event => { target.current = event.detail; historyNavigation.current = true; closeHandler.current(event.detail) }
+    window.addEventListener("portal:history", onHistory)
     node.showModal()
     heading.current.focus({ preventScroll: true })
     return () => {
+      window.removeEventListener("portal:history", onHistory)
       mobile.removeEventListener("change", updateMobile)
       clearTimeout(timer.current)
       node.close()
@@ -37,7 +43,8 @@ export default function IntroDetail({ initialKey, onClose }) {
   }, [])
 
   function close(id) {
-    if (closing) return
+    if (closingRef.current) return
+    closingRef.current = true
     target.current = id || null
     setClosing(true)
     const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 520
@@ -45,13 +52,12 @@ export default function IntroDetail({ initialKey, onClose }) {
       const destination = target.current
       onClose()
       if (destination) requestAnimationFrame(() => {
-        const element = document.getElementById(destination)
-        element?.scrollIntoView({ behavior: "auto" })
-        const focusTarget = document.getElementById(`${destination}-heading`) || element
-        if (focusTarget) { focusTarget.tabIndex = -1; focusTarget.focus({ preventScroll: true }) }
+        window.dispatchEvent(new CustomEvent("portal:navigate", { detail: { id: destination, history: !historyNavigation.current } }))
       })
     }, duration)
   }
+  closeHandler.current = close
+
   function select(key) {
     setActiveKey(key)
     dialog.current.querySelector(".detail-scroll").scrollTop = 0
@@ -65,11 +71,12 @@ export default function IntroDetail({ initialKey, onClose }) {
       <div className="detail-sticky-heading">
       <SiteHeader active="intro" dark onNavigate={close} />
       <DataBlock className="detail-data-block" />
+      {isMobile ? <nav className="detail-return-nav" aria-label="詳細画面のナビゲーション"><a href="#intro" className="detail-return-mobile-link" onClick={event => { event.preventDefault(); close() }}><GlyphIcon name="arrow-left" size={18} />Intro に戻る</a></nav> : null}
       <div className="detail-heading"><div className="detail-section-marker"><span>01</span><span>Intro</span></div><div className="detail-title-group"><h2 id="detail-title" className={activeKey === "engineering" ? "engineering-title" : ""} ref={heading} tabIndex={-1}>{content.title}</h2><p>{content.lead}</p></div></div>
       {isMobile ? <div className="detail-header-tabs">{categoryMenu}</div> : null}
       </div>
       <div className="detail-scroll"><div className="detail-layout"><aside className="detail-rail">{!isMobile ? categoryMenu : null}</aside>
-        <div className="detail-reading" key={activeKey}>{isMobile ? <a href="#intro" className="detail-return-mobile-link" onClick={event => { event.preventDefault(); close() }}><GlyphIcon name="arrow-left" size={18} />Intro に戻る</a> : null}<Content /></div>
+        <div className="detail-reading" key={activeKey}><Content /></div>
       </div></div>
       {!isMobile ? <button type="button" className="detail-return-fixed outline-action" onClick={() => close()}><GlyphIcon name="arrow-left" size={18} />Intro に戻る</button> : null}
     </div>

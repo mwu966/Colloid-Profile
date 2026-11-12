@@ -16,6 +16,8 @@ export default function useSectionNavigation(rootRef) {
     let stageHeight = stage.offsetHeight
     let viewportWidth = window.innerWidth
     let targetIndex = null
+    const previousRestoration = window.history.scrollRestoration
+    window.history.scrollRestoration = "manual"
     function position() {
       return Math.max(0, Math.min(4, -root.getBoundingClientRect().top / stage.offsetHeight))
     }
@@ -26,7 +28,7 @@ export default function useSectionNavigation(rootRef) {
       const layer = target.closest?.(".scene-layer")
       return layer && (direction > 0 ? layer.scrollTop + layer.clientHeight < layer.scrollHeight - 2 : layer.scrollTop > 2)
     }
-    function go(index, { focus = false, history = false } = {}) {
+    function go(index, { focus = false, history = false, animate = true } = {}) {
       cancelAnimationFrame(frame)
       frame = 0
       moving = false
@@ -35,7 +37,7 @@ export default function useSectionNavigation(rootRef) {
       const destination = root.getBoundingClientRect().top + start + target * stage.offsetHeight
       const distance = destination - start
       function complete() {
-        if (history && window.location.hash !== `#${ids[target]}`) window.history.pushState(null, "", `#${ids[target]}`)
+        if (history && window.location.hash !== `#${ids[target]}`) window.history.pushState(window.history.state, "", `#${ids[target]}`)
         if (focus) frame = requestAnimationFrame(() => {
           frame = requestAnimationFrame(() => {
             frame = 0
@@ -45,7 +47,7 @@ export default function useSectionNavigation(rootRef) {
       }
       if (Math.abs(distance) < 1) { targetIndex = null; complete(); return }
       targetIndex = target
-      const duration = reduced.matches ? 0 : 720
+      const duration = reduced.matches || !animate ? 0 : 720
       const started = performance.now()
       moving = true
       function tick(now) {
@@ -95,8 +97,9 @@ export default function useSectionNavigation(rootRef) {
       go(index, { focus: true, history: true })
     }
     function onNavigate(event) {
-      const index = ids.indexOf(event.detail)
-      if (index >= 0) go(index, { focus: true, history: true })
+      const id = typeof event.detail === "string" ? event.detail : event.detail.id
+      const index = ids.indexOf(id)
+      if (index >= 0) go(index, { focus: true, history: typeof event.detail === "string" || event.detail.history !== false })
     }
     function onTouchStart(event) {
       if (!blocked(event) && event.touches.length === 1) touch = { x: event.touches[0].clientX, y: event.touches[0].clientY, target: event.target }
@@ -112,6 +115,13 @@ export default function useSectionNavigation(rootRef) {
       if (!moving && Math.abs(dy) > 45) { step(Math.sign(dy)); touch = null }
     }
     function onTouchEnd() { touch = null }
+    function onHistory() {
+      const index = ids.indexOf(window.location.hash.slice(1) || "top")
+      if (index >= 0) {
+        window.dispatchEvent(new CustomEvent("portal:history", { detail: ids[index] }))
+        go(index, { focus: true, animate: false })
+      }
+    }
     function onResize() {
       const nextHeight = stage.offsetHeight
       if (stageHeight === nextHeight && viewportWidth === window.innerWidth) return
@@ -129,6 +139,10 @@ export default function useSectionNavigation(rootRef) {
       root.querySelectorAll(".scene-layer").forEach(layer => { layer.scrollTop = 0; layer.scrollLeft = 0 })
       window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY + anchor * stageHeight, behavior: "instant" })
     }
+    window.addEventListener("popstate", onHistory)
+    window.addEventListener("hashchange", onHistory)
+    const initialIndex = ids.indexOf(window.location.hash.slice(1))
+    if (initialIndex >= 0) go(initialIndex, { animate: false })
     window.addEventListener("resize", onResize)
     window.addEventListener("portal:navigate", onNavigate)
     window.addEventListener("keydown", onKey)
@@ -139,6 +153,9 @@ export default function useSectionNavigation(rootRef) {
     root.addEventListener("touchend", onTouchEnd)
     return () => {
       cancelAnimationFrame(frame)
+      window.history.scrollRestoration = previousRestoration
+      window.removeEventListener("popstate", onHistory)
+      window.removeEventListener("hashchange", onHistory)
       window.removeEventListener("resize", onResize)
       window.removeEventListener("portal:navigate", onNavigate)
       window.removeEventListener("keydown", onKey)

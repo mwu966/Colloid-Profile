@@ -404,7 +404,7 @@
   .skill-segments i { background: var(--line); }
   .skill-segments i.is-active { background: #72AEC9; }
   .skill-rating-number { font-size: 14px; line-height: 1.5; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .detail-return-mobile-link { display: inline-flex; position: static; align-items: center; gap: 8px; min-height: 44px; margin-bottom: 16px; color: var(--accent); font-size: 15px; text-decoration: underline; text-underline-offset: 4px; }
+  .detail-return-mobile-link { display: inline-flex; position: static; align-items: center; gap: 8px; min-height: 44px; margin: 0; color: var(--accent); font-size: 15px; text-decoration: underline; text-underline-offset: 4px; }
   .detail-scroll { padding-bottom: 24px; scroll-padding-bottom: 24px; }
 }
 .wavebox-cta-hand { font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif; font-weight: 400; line-height: 1; }
@@ -414,4 +414,8 @@
 .wavebox-right h3 { margin-top: 0; }
 @media (max-width: 767px) {
   .wavebox-right { padding-top: 104px; }
+}
+
+@media (max-width: 767px) {
+  .detail-return-nav { position: absolute; z-index: 5; top: 76px; left: 116px; right: 24px; display: flex; justify-content: flex-end; }
 }
