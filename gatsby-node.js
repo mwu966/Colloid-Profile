@@ -90,3 +90,12 @@ exports.sourceNodes = async ({
     })
   })
 }
+
+// Bundle the single source of creative history into both browser and SSR builds.
+exports.onCreateWebpackConfig = ({ actions }) => {
+  actions.setWebpackConfig({ module: { rules: [{
+    test: /\.md$/,
+    include: require("node:path").resolve(__dirname, "history.md"),
+    type: "asset/source",
+  }] } })
+}

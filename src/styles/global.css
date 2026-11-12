@@ -1,46 +1,34 @@
-@import url("https://fonts.googleapis.com/css2?family=Jura:wght@700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap");
-
 :root {
-  --bg: #f8fafc;
-  --ink: #0f172a;
-  --text: #334155;
-  --muted-ink: #64748b;
-  --paper-base: #f8fafc;
-  --paper-blue: #dbeafe;
-  --paper-orange: #ffedd5;
-  --paper-green: #dcfce7;
-  --border-strong: #0f172a;
-  --border-soft: rgba(15, 23, 42, 0.28);
-  --shadow-strong: rgba(15, 23, 42, 0.94);
-  --font-body: "Zen Kaku Gothic New", "Noto Sans JP", system-ui, -apple-system, sans-serif;
-  --font-heading: "Zen Kaku Gothic New", "Noto Sans JP", system-ui, -apple-system, sans-serif;
-  --font-mono: "Jura", "SFMono-Regular", "Roboto Mono", monospace;
+  --navy: #102a43;
+  --ivory: #f3f0e8;
+  --accent: #72aec9;
+  --ink: #080d16;
+  --muted: #afbdc6;
+  --line: #385164;
+  --font-display: "Righteous", sans-serif;
+  --font-heading: "Zen Kaku Gothic New", sans-serif;
+  --font-body: "Noto Sans JP", sans-serif;
+  --bg: var(--navy);
+  --text: var(--ivory);
+  --border-soft: var(--line);
 }
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: var(--font-body);
-  color: var(--ink);
-  background: var(--bg);
-  min-height: 100vh;
-}
-
-a {
-  color: inherit;
-}
-
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--navy); scrollbar-gutter: stable; }
+body { margin: 0; background: var(--navy); color: var(--ivory); font: 400 16px/1.65 var(--font-body); }
+body:has(dialog[open]) { overflow: hidden; }
+a { color: inherit; }
+button, input, textarea, select { font: inherit; }
+button { color: inherit; cursor: pointer; border-radius: 0; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button svg, a svg { flex-shrink: 0; }
+button:disabled { cursor: default; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 5px; }
+h1, h2, h3, h4, p { margin: 0; }
+img { max-width: 100%; height: auto; }
+.sr-only { position: absolute !important; width: 1px !important; height: 1px !important; padding: 0 !important; overflow: hidden !important; clip-path: inset(50%) !important; white-space: nowrap !important; border: 0 !important; }
+.skip-link { position: fixed; top: 10px; left: 10px; z-index: 50; padding: 12px 20px; color: var(--navy); background: var(--ivory); transform: translateY(-160%); }
+.skip-link:focus { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0ms !important; transition-duration: .01ms !important; }
 }

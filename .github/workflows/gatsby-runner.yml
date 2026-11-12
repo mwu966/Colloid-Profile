@@ -39,6 +39,9 @@ jobs:
       - name: Check dependency compatibility
         run: npm run test:dependencies
 
+      - name: Validate creative history
+        run: node --test scripts/creative-history.test.cjs
+
       - name: Build site
         run: npm run deploy
 

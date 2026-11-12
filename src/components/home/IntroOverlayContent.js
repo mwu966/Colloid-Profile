@@ -1,5 +1,7 @@
 import * as React from "react"
 import EngineeringSkillMatrix from "./EngineeringSkillMatrix"
+import { ProfileName } from "./IntroSection"
+import { ExternalLink, GlyphIcon } from "./PortalPrimitives"
 import {
   CREATIVE_WORKS_BY_YEAR,
   ENGINEERING_CAREER_SUMMARY,
@@ -8,150 +10,42 @@ import {
   PROFILE_HOBBIES,
   PROFILE_TIMELINE,
 } from "../../data/homeContent"
-import * as styles from "../../pages/index.module.css"
 
-function renderWithLineBreaks(text) {
-  return text.split("\n").map((line, index) => (
-    <React.Fragment key={`${line}-${index}`}>
-      {index > 0 ? <br /> : null}
-      {line}
-    </React.Fragment>
-  ))
+function ContentSection({ title, children }) {
+  return <section className="detail-content-section"><h3>{title}</h3>{children}</section>
 }
 
 function ProfileOverlayContent() {
-  return (
-    <div className={styles.overlayGrid}>
-      <div className={styles.overlayMain}>
-        <section className={`${styles.overlayCard} ${styles.overlayCool}`}>
-          <h3 className={styles.overlayCardTitle}>Colloid / コロイド</h3>
-          <p className={styles.overlayBody}>
-            本職はバックエンド寄りのシステムエンジニア。趣味で二次創作のイラストや漫画を描く。
-          </p>
-        </section>
-        <section className={`${styles.overlayCard} ${styles.overlayCool}`}>
-          <h3 className={styles.overlayCardTitle}>ざっくりとした経歴</h3>
-          <div className={styles.overlayTimeline}>
-            {PROFILE_TIMELINE.map((entry) => (
-              <p key={entry} className={styles.overlayBody}>
-                {renderWithLineBreaks(entry)}
-              </p>
-            ))}
-          </div>
-        </section>
-      </div>
-      <aside className={styles.overlaySide}>
-        <section className={`${styles.overlayCard} ${styles.overlayWarm}`}>
-          <h3 className={styles.overlayCardTitle}>趣味</h3>
-          <div className={styles.overlayList}>
-            {PROFILE_HOBBIES.map((hobby) => (
-              <div key={hobby} className={styles.overlayListItem}>
-                {hobby}
-              </div>
-            ))}
-          </div>
-        </section>
-      </aside>
-    </div>
-  )
+  return <>
+    <ContentSection title={<ProfileName />}><p>本職はバックエンド寄りのシステムエンジニア。趣味で二次創作のイラストや漫画を描く。</p></ContentSection>
+    <ContentSection title="ざっくりとした経歴"><div className="profile-timeline">{PROFILE_TIMELINE.map(entry => <p key={entry}>{entry}</p>)}</div></ContentSection>
+    <ContentSection title="趣味"><ul className="hobby-list">{PROFILE_HOBBIES.map(hobby => <li key={hobby}>{hobby}</li>)}</ul></ContentSection>
+  </>
 }
 
+const creativeYears = CREATIVE_WORKS_BY_YEAR
+
 function CreativeOverlayContent() {
-  return (
-    <section className={`${styles.overlayCard} ${styles.overlayWarm}`}>
-      <h3 className={styles.overlayCardTitle}>同人活動履歴</h3>
-      <p className={styles.overlayBody}>
-        各タイトルのリンク先は、BOOTH の販売ページまたは pixiv のサンプルページです。
-      </p>
-      <div className={styles.overlayList}>
-        {CREATIVE_WORKS_BY_YEAR.map((yearGroup) => (
-          <React.Fragment key={yearGroup.year}>
-            <h4 className={styles.overlayYear}>{yearGroup.year}</h4>
-            {yearGroup.items.map((item) => (
-              <div key={`${yearGroup.year}-${item.label}`} className={styles.overlayListItem}>
-                {item.label}:
-                {" "}
-                {item.links.map((link, index) => (
-                  <React.Fragment key={link.url}>
-                    {index > 0 ? " / " : null}
-                    <a href={link.url} target="_blank" rel="noreferrer">
-                      {link.label}
-                    </a>
-                  </React.Fragment>
-                ))}
-                {item.tail ? ` ${item.tail}` : null}
-              </div>
-            ))}
-          </React.Fragment>
-        ))}
-      </div>
-    </section>
-  )
+  return <>
+    <p>同人サークル｢ミルク蒼屋｣にて、主に東方Project、DDR(BEMANIシリーズ)二次創作同人誌を発行しています。</p>
+    <ContentSection title="同人活動履歴"><p>各タイトルのリンク先は、BOOTH の販売ページまたは pixiv のサンプルページです。</p>
+      <div className="creative-history">{creativeYears.map(group => <section className="history-year" key={group.year} aria-labelledby={`year-${group.year.replace(/\D/g, "")}`}><h4 id={`year-${group.year.replace(/\D/g, "")}`}>{group.year}</h4><ul>{group.items.map(item => <li key={item.label}><span>{item.label}{item.links.length ? "　/　" : ""}</span>{item.links.map((link, i) => <React.Fragment key={link.url}>{i ? " / " : null}<ExternalLink href={link.url}>{link.label}<GlyphIcon name="arrow-up-right" size={16} /></ExternalLink></React.Fragment>)}{item.tail ? <span> {item.tail}</span> : null}</li>)}</ul></section>)}</div>
+    </ContentSection>
+  </>
 }
 
 function EngineeringOverlayContent() {
-  return (
-    <div className={styles.overlayMain}>
-      <section className={`${styles.overlayCard} ${styles.overlayGreen}`}>
-        <h3 className={styles.overlayCardTitle}>資格</h3>
-        <div className={styles.overlayList}>
-          {ENGINEERING_CERTIFICATIONS.map((certification) => (
-            <div key={certification} className={styles.overlayListItem}>
-              {certification}
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className={`${styles.overlayCard} ${styles.overlayGreen}`}>
-        <h3 className={styles.overlayCardTitle}>スキルマップ</h3>
-        <p className={styles.skillMapNote}>主にバックエンド寄りの人です</p>
-        <EngineeringSkillMatrix />
-      </section>
-      <section className={`${styles.overlayCard} ${styles.overlayGreen}`}>
-        <h3 className={styles.overlayCardTitle}>ざっくりとした経歴</h3>
-        <p className={styles.overlayBody}>
-          {ENGINEERING_CAREER_SUMMARY.map((entry, index) => (
-            <React.Fragment key={entry}>
-              {index > 0 ? <><br /></> : null}
-              {entry}
-            </React.Fragment>
-          ))}
-        </p>
-      </section>
-      <section className={`${styles.overlayCard} ${styles.overlayGreen}`}>
-        <h3 className={styles.overlayCardTitle}>登壇履歴</h3>
-        <div className={styles.overlayList}>
-          {ENGINEERING_TALKS.map((talk) => (
-            <div key={talk.url} className={styles.overlayListItem}>
-              {talk.date}
-              {" "}
-              <a href={talk.url} target="_blank" rel="noreferrer">
-                {talk.label}
-              </a>
-              {" "}
-              {talk.note}
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
-  )
+  return <>
+    <p>エンジニアとしてのスキルセットや経験についての雑な紹介です。</p>
+    <ContentSection title="ざっくりとした経歴">{ENGINEERING_CAREER_SUMMARY.map(entry => <p key={entry}>{entry}</p>)}</ContentSection>
+    <ContentSection title="資格"><ul className="plain-list">{ENGINEERING_CERTIFICATIONS.map(cert => <li key={cert}>{cert}</li>)}</ul></ContentSection>
+    <ContentSection title="スキルマップ"><p>主にバックエンド寄りの人です</p><EngineeringSkillMatrix /></ContentSection>
+    <ContentSection title="登壇履歴"><ul className="talk-list">{ENGINEERING_TALKS.map(talk => <li key={talk.url}><time>{talk.date}</time><ExternalLink href={talk.url}>{talk.label}<GlyphIcon name="arrow-up-right" size={16} /></ExternalLink><span>{talk.note}</span></li>)}</ul></ContentSection>
+  </>
 }
 
 export const INTRO_OVERLAY_CONTENT = {
-  profile: {
-    title: "Profile",
-    lead: "自己紹介",
-    Content: ProfileOverlayContent,
-  },
-  creative: {
-    title: "Creative",
-    lead: "同人サークル｢ミルク蒼屋｣にて、主に東方Project、DDR(BEMANIシリーズ)二次創作同人誌を発行しています。",
-    Content: CreativeOverlayContent,
-  },
-  engineering: {
-    title: "Engineering",
-    lead: "エンジニアとしてのスキルセットや経験についての雑な紹介です。",
-    Content: EngineeringOverlayContent,
-  },
+  profile: { title: "Profile", lead: "自己紹介", Content: ProfileOverlayContent },
+  creative: { title: "Creative", lead: "個人同人サークル「ミルク蒼屋」", Content: CreativeOverlayContent },
+  engineering: { title: "Engineering", lead: "技術・仕事", Content: EngineeringOverlayContent },
 }

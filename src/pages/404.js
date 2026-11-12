@@ -2,9 +2,9 @@ import * as React from "react"
 import { Link } from "gatsby"
 
 const pageStyles = {
-  color: "#232129",
-  padding: "96px",
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
+  color: "var(--ivory)",
+  padding: "clamp(24px, 8vw, 96px)",
+  fontFamily: "var(--font-body)",
 }
 const headingStyles = {
   marginTop: 0,
