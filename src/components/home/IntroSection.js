@@ -67,7 +67,7 @@ export default function ScrollOpening({ posts, ...props }) {
         <div className="top-meta"><span>COLLOID ARCHIVE PORTAL</span><span>CREATIVE &amp; ENGINEERING</span></div>
         <h1 className="colloid-logo" id="top-title" tabIndex={-1} aria-label="Colloid">{Array.from("Colloid", (letter, i) => <span className={`logo-glyph ${i % 2 ? "glyph-down" : "glyph-up"}`} aria-hidden="true" key={i}><span className="glyph-fill">{letter}</span></span>)}</h1>
         <p className="portal-strapline">ARCHIVE PORTAL</p>
-        <p className="portal-introduction">Colloidの創作と技術のアーカイブポータルサイトです。</p>
+        <p className="portal-introduction">Colloidの創作と技術をまとめた個人サイト</p>
         <a href="#intro" className="top-scroll"><span><GlyphIcon name="arrow-down" /></span><small>SCROLL TO EXPLORE</small></a>
       </section>
     </div>
