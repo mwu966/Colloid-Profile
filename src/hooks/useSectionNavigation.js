@@ -25,7 +25,7 @@ export default function useSectionNavigation(rootRef) {
       return document.querySelector("dialog[open]") || event.target.closest?.("input, textarea, select, [contenteditable=true], [role=slider]")
     }
     function canScrollForeground(target, direction) {
-      const layer = target.closest?.(".scene-layer")
+      const layer = target.closest?.(".section-right:not(.intro-right)") || target.closest?.(".scene-layer")
       return layer && (direction > 0 ? layer.scrollTop + layer.clientHeight < layer.scrollHeight - 2 : layer.scrollTop > 2)
     }
     function go(index, { focus = false, history = false, animate = true } = {}) {
@@ -136,7 +136,7 @@ export default function useSectionNavigation(rootRef) {
       wheelDelta = 0
       lastWheel = -Infinity
       stageHeight = nextHeight
-      root.querySelectorAll(".scene-layer").forEach(layer => { layer.scrollTop = 0; layer.scrollLeft = 0 })
+      root.querySelectorAll(".scene-layer, .section-right").forEach(layer => { layer.scrollTop = 0; layer.scrollLeft = 0 })
       window.scrollTo({ top: root.getBoundingClientRect().top + window.scrollY + anchor * stageHeight, behavior: "instant" })
     }
     window.addEventListener("popstate", onHistory)
