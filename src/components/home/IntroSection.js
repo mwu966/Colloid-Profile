@@ -31,6 +31,7 @@ function IntroSection({ index, setIndex, onDetails }) {
   return <section id="intro-screen" className="portal-section intro-section" aria-labelledby="intro-heading">
     <SectionPanel number="01" title="Intro">Colloidの人物像・創作活動・<br className="desktop-break" />エンジニアとしての仕事を紹介。</SectionPanel>
     <div className="section-right intro-right" role="region" aria-roledescription="カルーセル" aria-label="Colloidの紹介">
+      <div className="intro-right-content">
       <div className="intro-slide" role="tabpanel" id="intro-slide-panel" aria-labelledby={`intro-tab-${index}`} aria-live="polite" aria-atomic="true">
         <SlidingContent index={index} direction={direction}>
         <h3 className={`intro-category ${slide.key === "engineering" ? "engineering-title" : ""}`}>{slide.title}</h3>
@@ -43,6 +44,7 @@ function IntroSection({ index, setIndex, onDetails }) {
       <button type="button" onKeyDown={onArrowKey} className="carousel-arrow carousel-prev icon-button" aria-label="前の紹介" onClick={() => change(-1)}><GlyphIcon name="chevron-left" size={32} /></button>
       <button type="button" onKeyDown={onArrowKey} className="carousel-arrow carousel-next icon-button" aria-label="次の紹介" onClick={() => change(1)}><GlyphIcon name="chevron-right" size={32} /></button>
       <div className="slide-choices" role="tablist" aria-label="紹介を選ぶ">{INTRO_SLIDES.map((item, i) => <button key={item.key} type="button" role="tab" id={`intro-tab-${i}`} aria-controls="intro-slide-panel" tabIndex={i === index ? 0 : -1} onKeyDown={event => { onArrowKey(event); if (event.key === "ArrowLeft" || event.key === "ArrowRight") document.getElementById(`intro-tab-${(index + (event.key === "ArrowLeft" ? 2 : 1)) % 3}`)?.focus() }} aria-label={`${String(i + 1).padStart(2, "0")} ${item.title}／${item.subtitle}`} aria-selected={i === index} onClick={() => select(i)}><span>{String(i + 1).padStart(2, "0")} {item.title}</span><span>{item.subtitle}</span></button>)}</div>
+      </div>
     </div>
     <NextSection href="#links">次へ　02 Links</NextSection>
   </section>
